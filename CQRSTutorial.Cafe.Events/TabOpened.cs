@@ -4,8 +4,8 @@ namespace CQRSTutorial.Cafe.Events
 {
     public class TabOpened
     {
-        public Guid Id;
-        public int TableNumber;
-        public string Waiter;
+        public Guid Id { get; set; }
+        public int TableNumber { get; set; }
+        public string Waiter { get; set; }
     }
 }

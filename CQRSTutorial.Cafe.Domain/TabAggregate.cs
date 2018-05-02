@@ -5,7 +5,7 @@ using System.Collections;
 namespace CQRSTutorial.Cafe.Domain
 {
     public class TabAggregate : Aggregate,
-        IHandleCommand<OpenTabCommand>
+        ICommandHander<OpenTabCommand>,
     {
         public IEnumerable Handle(OpenTabCommand c)
         {

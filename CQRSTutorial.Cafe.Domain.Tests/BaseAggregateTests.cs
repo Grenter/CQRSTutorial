@@ -1,10 +1,10 @@
-﻿using CQRSTutorial.Cafe.Domain.Commands;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using CQRSTutorial.Cafe.Common;
 
 namespace CQRSTutorial.Cafe.Domain.Tests
 {
@@ -103,7 +103,7 @@ namespace CQRSTutorial.Cafe.Domain.Tests
 
         private IEnumerable DispatchCommand<TCommand>(TCommand c)
         {
-            var handler = _aggregate as IHandleCommand<TCommand>;
+            var handler = _aggregate as ICommandHander<TCommand>;
             if (handler == null)
                 throw new CommandHandlerNotDefiendException(string.Format(
                     "Aggregate {0} does not yet handle command {1}",

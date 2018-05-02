@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 
-namespace CQRSTutorial.Cafe.Domain.Commands
+namespace CQRSTutorial.Cafe.Common
 {
-    public interface IHandleCommand<TCommand>
+    public interface ICommandHander<TCommand>
     {
         IEnumerable Handle(TCommand c);
     }
