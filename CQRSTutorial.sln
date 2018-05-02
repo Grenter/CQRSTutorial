@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.DataAccess", "CQRSTutorial.DataAccess\CQRSTutorial.DataAccess.csproj", "{9EE51A51-C983-41B0-8F99-59922358F575}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.DataAccess", "CQRSTutorial.DataAccess\CQRSTutorial.DataAccess.csproj", "{9EE51A51-C983-41B0-8F99-59922358F575}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.DataAccess.Tests", "CQRSTutorial.DataAccess.Tests\CQRSTutorial.DataAccess.Tests.csproj", "{FB749A0E-B68A-4384-BF24-FE762D2F5887}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.DataAccess.Tests", "CQRSTutorial.DataAccess.Tests\CQRSTutorial.DataAccess.Tests.csproj", "{FB749A0E-B68A-4384-BF24-FE762D2F5887}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Cafe.Domain", "CQRSTutorial.Cafe.Domain\CQRSTutorial.Cafe.Domain.csproj", "{E73B676F-6995-44C7-9A01-62FBE400B0CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Cafe.Domain.Tests", "CQRSTutorial.Cafe.Domain.Tests\CQRSTutorial.Cafe.Domain.Tests.csproj", "{3B05B74B-D155-4166-819D-6D58A8B989A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Cafe.Events", "CQRSTutorial.Cafe.Events\CQRSTutorial.Cafe.Events.csproj", "{BAD739EF-4298-425D-B019-C7CA16432F51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{FB749A0E-B68A-4384-BF24-FE762D2F5887}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB749A0E-B68A-4384-BF24-FE762D2F5887}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB749A0E-B68A-4384-BF24-FE762D2F5887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E73B676F-6995-44C7-9A01-62FBE400B0CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E73B676F-6995-44C7-9A01-62FBE400B0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E73B676F-6995-44C7-9A01-62FBE400B0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E73B676F-6995-44C7-9A01-62FBE400B0CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B05B74B-D155-4166-819D-6D58A8B989A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B05B74B-D155-4166-819D-6D58A8B989A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B05B74B-D155-4166-819D-6D58A8B989A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B05B74B-D155-4166-819D-6D58A8B989A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAD739EF-4298-425D-B019-C7CA16432F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD739EF-4298-425D-B019-C7CA16432F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAD739EF-4298-425D-B019-C7CA16432F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAD739EF-4298-425D-B019-C7CA16432F51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
