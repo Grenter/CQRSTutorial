@@ -48,29 +48,23 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         {
             return got =>
             {
-                var gotEvents = got as object[];
-                if (gotEvents != null)
+                if (got is object[] gotEvents)
                 {
                     if (gotEvents.Length == expectedEvents.Length)
                         for (var i = 0; i < gotEvents.Length; i++)
                             if (gotEvents[i].GetType() == expectedEvents[i].GetType())
                                 Assert.AreEqual(Serialize(expectedEvents[i]), Serialize(gotEvents[i]));
                             else
-                                Assert.Fail(string.Format(
-                                    "Incorrect event in results; expected a {0} but got a {1}",
-                                    expectedEvents[i].GetType().Name, gotEvents[i].GetType().Name));
+                                Assert.Fail($"Incorrect event in results; expected a {expectedEvents[i].GetType().Name} but got a {gotEvents[i].GetType().Name}");
                     else if (gotEvents.Length < expectedEvents.Length)
-                        Assert.Fail(string.Format("Expected event(s) missing: {0}",
-                            string.Join(", ", EventDiff(expectedEvents, gotEvents))));
+                        Assert.Fail($"Expected event(s) missing: {string.Join(", ", EventDiff(expectedEvents, gotEvents))}");
                     else
-                        Assert.Fail(string.Format("Unexpected event(s) emitted: {0}",
-                            string.Join(", ", EventDiff(gotEvents, expectedEvents))));
+                        Assert.Fail($"Unexpected event(s) emitted: {string.Join(", ", EventDiff(gotEvents, expectedEvents))}");
                 }
-                else if (got is CommandHandlerNotDefiendException)
-                    Assert.Fail((got as Exception).Message);
+                else if (got is CommandHandlerNotDefiendException exception)
+                    Assert.Fail(exception.Message);
                 else
-                    Assert.Fail("Expected events, but got exception {0}",
-                        got.GetType().Name);
+                    Assert.Fail($"Expected events, but got exception {got.GetType().Name}");
             };
         }
 
