@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CQRSTutorial.Cafe.Commands;
 using CQRSTutorial.Cafe.Common;
-using CQRSTutorial.Cafe.Domain.Commands;
 using CQRSTutorial.Cafe.Events;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace CQRSTutorial.Cafe.Domain.Tests
 {
@@ -27,7 +27,7 @@ namespace CQRSTutorial.Cafe.Domain.Tests
             {
                 Description = "Thatchers Cider (pint)",
                 IsDrink = true,
-                MenuNumber = 1,
+                MenuNumber = 50,
                 Price = 4.5m
             };
             _testDrink2 = new OrderedItem
@@ -41,14 +41,14 @@ namespace CQRSTutorial.Cafe.Domain.Tests
             {
                 Description = "Bacon Cheeseburger",
                 Price = 10m,
-                MenuNumber = 1,
+                MenuNumber = 100,
                 IsDrink = false
             };
             _testFood2 = new OrderedItem
             {
                 Description = "Falafel Salad",
                 Price = 7.5m,
-                MenuNumber = 1,
+                MenuNumber = 130,
                 IsDrink = false
             };
         }
@@ -146,15 +146,41 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                     Items = new List<OrderedItem> { _testFood1, _testDrink2 }
                 }),
                 Then(new DrinksOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testDrink2 }
-                    },
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testDrink2 }
+                },
                     new FoodOrdered
                     {
                         Id = _testId,
                         Items = new List<OrderedItem> { _testFood1 }
                     }));
+        }
+
+        [Test]
+        public void Ordered_drinks_can_be_served()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }, new DrinksOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
+                }),
+                When(new ServeDrinksCommand
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testDrink1.MenuNumber, _testDrink2.MenuNumber }
+                }),
+                Then(new DrinksServed
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testDrink1.MenuNumber, _testDrink2.MenuNumber }
+                }));
         }
     }
 }

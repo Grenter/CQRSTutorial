@@ -1,15 +1,17 @@
-﻿using CQRSTutorial.Cafe.Domain.Commands;
+﻿using CQRSTutorial.Cafe.Commands;
+using CQRSTutorial.Cafe.Common;
 using CQRSTutorial.Cafe.Events;
 using System.Collections;
 using System.Linq;
-using CQRSTutorial.Cafe.Common;
 
 namespace CQRSTutorial.Cafe.Domain
 {
     public class TabAggregate : Aggregate,
         ICommandHander<OpenTabCommand>,
         ICommandHander<PlaceOrderCommand>,
-        IApplyEvent<TabOpened>
+        ICommandHander<ServeDrinksCommand>,
+        IApplyEvent<TabOpened>,
+        IApplyEvent<DrinksOrdered>
     {
         private bool _tabOpen;
 
@@ -48,9 +50,23 @@ namespace CQRSTutorial.Cafe.Domain
             }
         }
 
+        public IEnumerable Handle(ServeDrinksCommand c)
+        {
+            yield return new DrinksServed
+            {
+                Id = c.Id,
+                MenuNumbers = c.MenuNumbers
+            };
+        }
+
         public void Apply(TabOpened e)
         {
             _tabOpen = true;
+        }
+
+        public void Apply(DrinksOrdered e)
+        {
+            
         }
     }
 }

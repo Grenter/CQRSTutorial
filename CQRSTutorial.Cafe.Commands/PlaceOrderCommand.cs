@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using CQRSTutorial.Cafe.Events;
 
-namespace CQRSTutorial.Cafe.Domain.Commands
+namespace CQRSTutorial.Cafe.Commands
 {
     public class PlaceOrderCommand
     {
