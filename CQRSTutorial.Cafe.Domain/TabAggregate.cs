@@ -8,7 +8,8 @@ namespace CQRSTutorial.Cafe.Domain
 {
     public class TabAggregate : Aggregate,
         ICommandHander<OpenTabCommand>,
-        ICommandHander<PlaceOrderCommand>
+        ICommandHander<PlaceOrderCommand>,
+        IApplyEvent<TabOpened>
     {
         private bool _tabOpen;
 
@@ -24,7 +25,21 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(PlaceOrderCommand c)
         {
-            throw new TabNotOpen();
+            if (!_tabOpen) throw new TabNotOpen();
+
+            if (c.Items.Any(i => i.IsDrink))
+            {
+                yield return new DrinksOrdered
+                {
+                    Id = c.Id,
+                    Items = c.Items
+                };
+            }
+        }
+
+        public void Apply(TabOpened e)
+        {
+            _tabOpen = true;
         }
     }
 }

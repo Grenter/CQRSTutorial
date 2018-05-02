@@ -8,6 +8,6 @@ namespace CQRSTutorial.Cafe.Domain.Commands
     public class PlaceOrderCommand
     {
         public Guid Id { get; set; }
-        public IEnumerable<OrderedItem> Items { get; set; }
+        public List<OrderedItem> Items { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using CQRSTutorial.Cafe.Common;
 
 namespace CQRSTutorial.Cafe.Domain
 {
@@ -15,6 +16,17 @@ namespace CQRSTutorial.Cafe.Domain
                 GetType().GetMethod("ApplyOneEvent")
                     .MakeGenericMethod(e.GetType())
                     .Invoke(this, new object[] { e });
+        }
+
+        public void ApplyOneEvent<TEvent>(TEvent ev)
+        {
+            var applier = this as IApplyEvent<TEvent>;
+            if (applier == null)
+                throw new InvalidOperationException(string.Format(
+                    "Aggregate {0} does not know how to apply event {1}",
+                    GetType().Name, ev.GetType().Name));
+            applier.Apply(ev);
+            EventsLoaded++;
         }
     }
 }

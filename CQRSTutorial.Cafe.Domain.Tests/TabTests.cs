@@ -69,5 +69,27 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 }),
                 ThenFailWith<TabNotOpen>());
         }
+
+        [Test]
+        public void Can_place_drinks_order()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = testId,
+                    TableNumber = testTable,
+                    Waiter = testWaiter
+                }),
+                When(new PlaceOrderCommand
+                {
+                    Id = testId,
+                    Items = new List<OrderedItem> { testDrink1, testDrink2 }
+                }),
+                Then(new DrinksOrdered
+                {
+                    Id = testId,
+                    Items = new List<OrderedItem> { testDrink1, testDrink2 }
+                }));
+        }
     }
 }
