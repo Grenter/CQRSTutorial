@@ -17,4 +17,10 @@ namespace CQRSTutorial.Cafe.Events
         public Guid Id { get; set; }
         public List<OrderedItem> Items { get; set; }
     }
+
+    public class FoodOrdered
+    {
+        public Guid Id { get; set; }
+        public List<OrderedItem> Items { get; set; }
+    }
 }

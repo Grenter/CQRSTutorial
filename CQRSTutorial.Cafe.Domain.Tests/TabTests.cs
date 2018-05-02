@@ -9,31 +9,47 @@ namespace CQRSTutorial.Cafe.Domain.Tests
 {
     public class TabTests : BaseAggregateTests<TabAggregate>
     {
-        private Guid testId;
-        private int testTable;
-        private string testWaiter;
-        private OrderedItem testDrink1;
-        private OrderedItem testDrink2;
+        private Guid _testId;
+        private int _testTable;
+        private string _testWaiter;
+        private OrderedItem _testDrink1;
+        private OrderedItem _testDrink2;
+        private OrderedItem _testFood1;
+        private OrderedItem _testFood2;
 
         [SetUp]
         public void Setup()
         {
-            testId = Guid.NewGuid();
-            testTable = 1;
-            testWaiter = "Rupert";
-            testDrink1 = new OrderedItem
+            _testId = Guid.NewGuid();
+            _testTable = 1;
+            _testWaiter = "Rupert";
+            _testDrink1 = new OrderedItem
             {
                 Description = "Thatchers Cider (pint)",
                 IsDrink = true,
                 MenuNumber = 1,
                 Price = 4.5m
             };
-            testDrink2 = new OrderedItem
+            _testDrink2 = new OrderedItem
             {
                 Description = "Coke (half)",
                 IsDrink = true,
                 MenuNumber = 1,
                 Price = 1.5m
+            };
+            _testFood1 = new OrderedItem
+            {
+                Description = "Bacon Cheeseburger",
+                Price = 10m,
+                MenuNumber = 1,
+                IsDrink = false
+            };
+            _testFood2 = new OrderedItem
+            {
+                Description = "Falafel Salad",
+                Price = 7.5m,
+                MenuNumber = 1,
+                IsDrink = false
             };
         }
 
@@ -44,15 +60,15 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 Given(),
                 When(new OpenTabCommand
                 {
-                    Id = testId,
-                    TableNumber = testTable,
-                    Waiter = testWaiter
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
                 }),
                 Then(new TabOpened
                 {
-                    Id = testId,
-                    TableNumber = testTable,
-                    Waiter = testWaiter
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
                 }
                 ));
         }
@@ -64,8 +80,8 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 Given(),
                 When(new PlaceOrderCommand
                 {
-                    Id = testId,
-                    Items = new List<OrderedItem> { testDrink1 }
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testDrink1 }
                 }),
                 ThenFailWith<TabNotOpen>());
         }
@@ -76,20 +92,69 @@ namespace CQRSTutorial.Cafe.Domain.Tests
             Test(
                 Given(new TabOpened
                 {
-                    Id = testId,
-                    TableNumber = testTable,
-                    Waiter = testWaiter
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
                 }),
                 When(new PlaceOrderCommand
                 {
-                    Id = testId,
-                    Items = new List<OrderedItem> { testDrink1, testDrink2 }
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
                 }),
                 Then(new DrinksOrdered
                 {
-                    Id = testId,
-                    Items = new List<OrderedItem> { testDrink1, testDrink2 }
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
                 }));
+        }
+
+        [Test]
+        public void Can_place_food_order()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }),
+                When(new PlaceOrderCommand
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
+                }),
+                Then(new FoodOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
+                }));
+        }
+
+        [Test]
+        public void Can_place_food_and_drink_order()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }),
+                When(new PlaceOrderCommand
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testFood1, _testDrink2 }
+                }),
+                Then(new DrinksOrdered
+                    {
+                        Id = _testId,
+                        Items = new List<OrderedItem> { _testDrink2 }
+                    },
+                    new FoodOrdered
+                    {
+                        Id = _testId,
+                        Items = new List<OrderedItem> { _testFood1 }
+                    }));
         }
     }
 }

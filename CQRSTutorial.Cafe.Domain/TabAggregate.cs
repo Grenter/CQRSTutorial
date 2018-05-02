@@ -27,12 +27,23 @@ namespace CQRSTutorial.Cafe.Domain
         {
             if (!_tabOpen) throw new TabNotOpen();
 
-            if (c.Items.Any(i => i.IsDrink))
+            var drink = c.Items.Where(i => i.IsDrink).ToList();
+            if (drink.Any())
             {
                 yield return new DrinksOrdered
                 {
                     Id = c.Id,
-                    Items = c.Items
+                    Items = drink
+                };
+            }
+
+            var food = c.Items.Where(i => !i.IsDrink).ToList();
+            if (food.Any())
+            {
+                yield return new FoodOrdered
+                {
+                    Id = c.Id,
+                    Items = food
                 };
             }
         }
