@@ -182,5 +182,28 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                     MenuNumbers = new List<int> { _testDrink1.MenuNumber, _testDrink2.MenuNumber }
                 }));
         }
+
+        [Test]
+        public void Can_not_server_an_unordered_drink()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }, new DrinksOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testDrink1 }
+                }),
+                When(
+                    new ServeDrinksCommand
+                    {
+                        Id = _testId,
+                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+                    }),
+                ThenFailWith<DrinksNotOutstanding>());
+        }
     }
 }
