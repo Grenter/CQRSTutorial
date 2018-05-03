@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace CQRSTutorial.Cafe.Events
 {
@@ -10,17 +8,5 @@ namespace CQRSTutorial.Cafe.Events
         public string Description { get; set; }
         public bool IsDrink { get; set; }
         public decimal Price { get; set; }
-    }
-
-    public class DrinksOrdered
-    {
-        public Guid Id { get; set; }
-        public List<OrderedItem> Items { get; set; }
-    }
-
-    public class FoodOrdered
-    {
-        public Guid Id { get; set; }
-        public List<OrderedItem> Items { get; set; }
     }
 }
