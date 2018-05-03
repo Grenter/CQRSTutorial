@@ -205,5 +205,31 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                     }),
                 ThenFailWith<DrinksNotOutstanding>());
         }
+
+        [Test]
+        public void Can_not_serve_an_ordered_drink_twice()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }, new DrinksOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> {_testDrink1}
+                }, new DrinksServed
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> {_testDrink1.MenuNumber}
+                }),
+                When(new ServeDrinksCommand
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> {_testDrink1.MenuNumber}
+                }),
+                ThenFailWith<DrinksNotOutstanding>());
+        }
     }
 }

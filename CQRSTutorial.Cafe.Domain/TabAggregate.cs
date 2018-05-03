@@ -1,4 +1,5 @@
-﻿using CQRSTutorial.Cafe.Commands;
+﻿using System;
+using CQRSTutorial.Cafe.Commands;
 using CQRSTutorial.Cafe.Common;
 using CQRSTutorial.Cafe.Events;
 using System.Collections;
@@ -12,7 +13,8 @@ namespace CQRSTutorial.Cafe.Domain
         ICommandHander<PlaceOrderCommand>,
         ICommandHander<ServeDrinksCommand>,
         IApplyEvent<TabOpened>,
-        IApplyEvent<DrinksOrdered>
+        IApplyEvent<DrinksOrdered>,
+        IApplyEvent<DrinksServed>
     {
         private bool _tabOpen;
         private List<int> _outstandingDrinks = new List<int>();
@@ -72,6 +74,14 @@ namespace CQRSTutorial.Cafe.Domain
         public void Apply(DrinksOrdered e)
         {
             _outstandingDrinks.AddRange(e.Items.Select(i => i.MenuNumber));
+        }
+
+        public void Apply(DrinksServed e)
+        {
+            foreach (var menuNumber in e.MenuNumbers)
+            {
+                _outstandingDrinks.Remove(menuNumber);
+            }
         }
 
         private bool AreDrinksOutstanding(IEnumerable<int> menuNumbers)
