@@ -218,18 +218,44 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 }, new DrinksOrdered
                 {
                     Id = _testId,
-                    Items = new List<OrderedItem> {_testDrink1}
+                    Items = new List<OrderedItem> { _testDrink1 }
                 }, new DrinksServed
                 {
                     Id = _testId,
-                    MenuNumbers = new List<int> {_testDrink1.MenuNumber}
+                    MenuNumbers = new List<int> { _testDrink1.MenuNumber }
                 }),
                 When(new ServeDrinksCommand
                 {
                     Id = _testId,
-                    MenuNumbers = new List<int> {_testDrink1.MenuNumber}
+                    MenuNumbers = new List<int> { _testDrink1.MenuNumber }
                 }),
                 ThenFailWith<DrinksNotOutstanding>());
+        }
+
+        [Test]
+        public void Ordered_food_can_be_served()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }, new FoodOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
+                }),
+                When(new ServeFoodCommand
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
+                }),
+                Then(new FoodServed
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
+                }));
         }
     }
 }

@@ -12,9 +12,11 @@ namespace CQRSTutorial.Cafe.Domain
         ICommandHander<OpenTabCommand>,
         ICommandHander<PlaceOrderCommand>,
         ICommandHander<ServeDrinksCommand>,
+        ICommandHander<ServeFoodCommand>,
         IApplyEvent<TabOpened>,
         IApplyEvent<DrinksOrdered>,
-        IApplyEvent<DrinksServed>
+        IApplyEvent<DrinksServed>,
+        IApplyEvent<FoodOrdered>
     {
         private bool _tabOpen;
         private List<int> _outstandingDrinks = new List<int>();
@@ -66,6 +68,15 @@ namespace CQRSTutorial.Cafe.Domain
             };
         }
 
+        public IEnumerable Handle(ServeFoodCommand c)
+        {
+            yield return new FoodServed
+            {
+                Id = c.Id,
+                MenuNumbers = c.MenuNumbers
+            };
+        }
+
         public void Apply(TabOpened e)
         {
             _tabOpen = true;
@@ -82,6 +93,11 @@ namespace CQRSTutorial.Cafe.Domain
             {
                 _outstandingDrinks.Remove(menuNumber);
             }
+        }
+
+        public void Apply(FoodOrdered e)
+        {
+            
         }
 
         private bool AreDrinksOutstanding(IEnumerable<int> menuNumbers)
