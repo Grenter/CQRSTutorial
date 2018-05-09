@@ -184,7 +184,7 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         }
 
         [Test]
-        public void Can_not_server_an_unordered_drink()
+        public void Can_not_serve_an_unordered_drink()
         {
             Test(
                 Given(new TabOpened
@@ -256,6 +256,29 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                     Id = _testId,
                     MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
                 }));
+        }
+
+        [Test]
+        public void Can_not_serve_an_unordered_food_item()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }, new FoodOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testFood1 }
+                }),
+                When(
+                    new ServeFoodCommand
+                    {
+                        Id = _testId,
+                        MenuNumbers = new List<int> { _testFood2.MenuNumber }
+                    }),
+                ThenFailWith<FoodNotOutstanding>()); 
         }
     }
 }

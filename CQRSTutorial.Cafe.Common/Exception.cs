@@ -9,4 +9,8 @@ namespace CQRSTutorial.Cafe.Common
     public class DrinksNotOutstanding : Exception
     {
     }
+
+    public class FoodNotOutstanding : Exception
+    {
+    }
 }

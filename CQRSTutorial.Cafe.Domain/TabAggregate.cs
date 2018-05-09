@@ -16,10 +16,12 @@ namespace CQRSTutorial.Cafe.Domain
         IApplyEvent<TabOpened>,
         IApplyEvent<DrinksOrdered>,
         IApplyEvent<DrinksServed>,
-        IApplyEvent<FoodOrdered>
+        IApplyEvent<FoodOrdered>,
+        IApplyEvent<FoodServed>
     {
         private bool _tabOpen;
         private List<int> _outstandingDrinks = new List<int>();
+        private List<int> _outstandingFood = new List<int>();
 
         public IEnumerable Handle(OpenTabCommand c)
         {
@@ -70,6 +72,9 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(ServeFoodCommand c)
         {
+            if (!AreFoodOutstanding(c.MenuNumbers))
+                throw new FoodNotOutstanding();
+
             yield return new FoodServed
             {
                 Id = c.Id,
@@ -97,12 +102,35 @@ namespace CQRSTutorial.Cafe.Domain
 
         public void Apply(FoodOrdered e)
         {
-            
+            _outstandingFood.AddRange(e.Items.Select(i => i.MenuNumber));
+        }
+
+        public void Apply(FoodServed e)
+        {
+            foreach (var menuNumber in e.MenuNumbers)
+            {
+                _outstandingFood.Remove(menuNumber);
+            }
         }
 
         private bool AreDrinksOutstanding(IEnumerable<int> menuNumbers)
         {
             var curOutstanding = new List<int>(_outstandingDrinks);
+
+            foreach (var menuNumber in menuNumbers)
+            {
+                if (curOutstanding.Contains(menuNumber))
+                    curOutstanding.Remove(menuNumber);
+                else
+                    return false;
+            }
+
+            return true;
+        }
+
+        private bool AreFoodOutstanding(List<int> menuNumbers)
+        {
+            var curOutstanding = new List<int>(_outstandingFood);
 
             foreach (var menuNumber in menuNumbers)
             {
