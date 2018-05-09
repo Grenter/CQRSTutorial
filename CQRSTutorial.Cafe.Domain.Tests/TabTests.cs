@@ -443,5 +443,67 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                     TipValue = 0.50M
                 }));
         }
+
+        [Test]
+        public void Can_close_tab_by_paying_exact_amount()
+        {
+            Test(
+                Given(new TabOpened
+                    {
+                        Id = _testId,
+                        TableNumber = _testTable,
+                        Waiter = _testWaiter
+                    },
+                    new DrinksOrdered
+                    {
+                        Id = _testId,
+                        Items = new List<OrderedItem> { _testDrink2 }
+                    },
+                    new DrinksServed
+                    {
+                        Id = _testId,
+                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+                    }),
+                When(new CloseTabCommand
+                {
+                    Id = _testId,
+                    AmmountPaid = _testDrink2.Price
+                }),
+                Then(new TabClosed
+                {
+                    Id = _testId,
+                    AmmountPaid = _testDrink2.Price,
+                    OrderValue = _testDrink2.Price,
+                    TipValue = 0.0M
+                }));
+        }
+
+        [Test]
+        public void Can_not_close_tab_when_not_fully_paid()
+        {
+            Test(
+                Given(new TabOpened
+                    {
+                        Id = _testId,
+                        TableNumber = _testTable,
+                        Waiter = _testWaiter
+                    },
+                    new DrinksOrdered
+                    {
+                        Id = _testId,
+                        Items = new List<OrderedItem> { _testDrink2 }
+                    },
+                    new DrinksServed
+                    {
+                        Id = _testId,
+                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+                    }),
+                When(new CloseTabCommand
+                {
+                    Id = _testId,
+                    AmmountPaid = _testDrink2.Price /2
+                }),
+                ThenFailWith<NotEnoughPaid>());
+        }
     }
 }

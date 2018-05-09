@@ -101,6 +101,9 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(CloseTabCommand c)
         {
+            if (c.AmmountPaid < _serveredItemsValue)
+                throw new NotEnoughPaid();
+        
             yield return new TabClosed
             {
                 Id = c.Id,
