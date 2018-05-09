@@ -1,4 +1,5 @@
-﻿using CQRSTutorial.Cafe.Commands;
+﻿using System;
+using CQRSTutorial.Cafe.Commands;
 using CQRSTutorial.Cafe.Common;
 using CQRSTutorial.Cafe.Events;
 using System.Collections;
@@ -64,7 +65,7 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(ServeDrinksCommand c)
         {
-            if (!AreItemsOutstanding(_outstandingDrinks, c.MenuNumbers))
+            if (!AreItemsOutstanding(c.MenuNumbers, _outstandingDrinks))
                 throw new DrinksNotOutstanding();
 
             yield return new DrinksServed
@@ -76,7 +77,7 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(PrepareFoodCommand c)
         {
-            if (!AreItemsOutstanding(_outstandingFood, c.MenuNumbers))
+            if (!AreItemsOutstanding(c.MenuNumbers, _outstandingFood))
                 throw new FoodNotOutstanding();
 
             yield return new FoodPrepared
@@ -88,7 +89,7 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(ServeFoodCommand c)
         {
-            if (!AreItemsOutstanding(_preparedFood, c.MenuNumbers))
+            if (!AreItemsOutstanding(c.MenuNumbers, _preparedFood))
                 throw new FoodNotPrepared();
 
             yield return new FoodServed
@@ -154,15 +155,13 @@ namespace CQRSTutorial.Cafe.Domain
             }
         }
 
-        private bool AreItemsOutstanding(IEnumerable<OrderedItem>oustandingItems, IEnumerable<int> menuNumbers)
+        private static bool AreItemsOutstanding(IEnumerable<int> menuNumbers, IEnumerable<OrderedItem>oustandingItems)
         {
-            var curOutstanding = new List<OrderedItem>(oustandingItems);
-
+            var currentItems = new List<int>(oustandingItems.Select(i => i.MenuNumber));
             foreach (var menuNumber in menuNumbers)
             {
-                var item = curOutstanding.FirstOrDefault(i => i.MenuNumber == menuNumber);
-                if (curOutstanding.Contains(item))
-                    curOutstanding.Remove(item);
+                if (currentItems.Contains(menuNumber))
+                    currentItems.Remove(menuNumber);
                 else
                     return false;
             }
