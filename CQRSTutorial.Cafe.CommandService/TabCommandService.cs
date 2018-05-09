@@ -17,5 +17,10 @@ namespace CQRSTutorial.Cafe.CommandService
             _busControl = _messageBus.Create();
             _busControl.Start();
         }
+
+        public void Stop()
+        {
+            _busControl.Stop();
+        }
     }
 }

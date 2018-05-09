@@ -27,5 +27,14 @@ namespace CQRSTutorial.Cafe.CommandService.Tests
 
             _busControl.Received(1).Start();
         }
+
+        [Test]
+        public void Stop_tab_service_stops_message_bus()
+        {
+            _tabCommandService.Start();
+            _tabCommandService.Stop();
+
+            _busControl.Received(1).Stop();
+        }
     }
 }
