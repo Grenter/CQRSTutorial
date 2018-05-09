@@ -8,10 +8,4 @@ namespace CQRSTutorial.Cafe.Events
         public Guid Id { get; set; }
         public List<int> MenuNumbers { get; set; }
     }
-
-    public class FoodPrepared
-    {
-        public Guid Id { get; set; }
-        public List<int> MenuNumbers { get; set; }
-    }
 }

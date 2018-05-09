@@ -8,9 +8,4 @@ namespace CQRSTutorial.Cafe.Commands
         public Guid Id { get; set; }
         public List<int> MenuNumbers { get; set; }
     }
-    public class PrepareFoodCommand
-    {
-        public Guid Id { get; set; }
-        public List<int> MenuNumbers { get; set; }
-    }
 }

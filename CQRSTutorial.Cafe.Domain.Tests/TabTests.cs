@@ -277,7 +277,35 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         }
 
         [Test]
-        public void Ordered_food_can_be_served()
+        public void Can_not_mark_food_as_prepared_twice()
+        {
+            Test(
+                Given(new TabOpened
+                    {
+                        Id = _testId,
+                        TableNumber = _testTable,
+                        Waiter = _testWaiter
+                    },
+                    new FoodOrdered
+                    {
+                        Id = _testId,
+                        Items = new List<OrderedItem> { _testFood1, _testFood1 }
+                    },
+                    new FoodPrepared
+                    {
+                        Id = _testId,
+                        MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
+                    }),
+                When(new PrepareFoodCommand()
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood1.MenuNumber }
+                }),
+                ThenFailWith<FoodNotOutstanding>());
+        }
+
+        [Test]
+        public void Can_serve_prepared_food()
         {
             Test(
                 Given(new TabOpened
@@ -289,6 +317,10 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 {
                     Id = _testId,
                     Items = new List<OrderedItem> { _testFood1, _testFood2 }
+                }, new FoodPrepared
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
                 }),
                 When(new ServeFoodCommand
                 {
@@ -322,7 +354,7 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                         Id = _testId,
                         MenuNumbers = new List<int> { _testFood2.MenuNumber }
                     }),
-                ThenFailWith<FoodNotOutstanding>());
+                ThenFailWith<FoodNotPrepared>());
         }
 
         [Test]
@@ -337,18 +369,45 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 }, new FoodOrdered
                 {
                     Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1 }
+                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
+                }, new FoodPrepared
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
                 }, new FoodServed
                 {
                     Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber }
+                    MenuNumbers = new List<int> { _testFood2.MenuNumber, _testFood1.MenuNumber }
                 }),
+                When(new ServeFoodCommand
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood2.MenuNumber, _testFood1.MenuNumber }
+                }),
+                ThenFailWith<FoodNotPrepared>());
+        }
+
+        [Test]
+        public void Can_not_serve_ordered_but_unprepared_Food()
+        {
+            Test(
+                Given(new TabOpened
+                    {
+                        Id = _testId,
+                        TableNumber = _testTable,
+                        Waiter = _testWaiter
+                    },
+                    new FoodOrdered
+                    {
+                        Id = _testId,
+                        Items = new List<OrderedItem> { _testFood1 }
+                    }),
                 When(new ServeFoodCommand
                 {
                     Id = _testId,
                     MenuNumbers = new List<int> { _testFood1.MenuNumber }
                 }),
-                ThenFailWith<FoodNotOutstanding>());
+                ThenFailWith<FoodNotPrepared>());
         }
 
         [Test]

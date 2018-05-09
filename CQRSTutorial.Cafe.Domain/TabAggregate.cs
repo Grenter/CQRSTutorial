@@ -18,6 +18,7 @@ namespace CQRSTutorial.Cafe.Domain
         IApplyEvent<DrinksOrdered>,
         IApplyEvent<DrinksServed>,
         IApplyEvent<FoodOrdered>,
+        IApplyEvent<FoodPrepared>,
         IApplyEvent<FoodServed>
     {
         private bool _tabOpen;
@@ -87,8 +88,8 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(ServeFoodCommand c)
         {
-            if (!AreItemsOutstanding(_outstandingFood, c.MenuNumbers))
-                throw new FoodNotOutstanding();
+            if (!AreItemsOutstanding(_preparedFood, c.MenuNumbers))
+                throw new FoodNotPrepared();
 
             yield return new FoodServed
             {
@@ -122,7 +123,7 @@ namespace CQRSTutorial.Cafe.Domain
         {
             foreach (var menuNumber in e.MenuNumbers)
             {
-                var item = _outstandingDrinks.First(d => d.MenuNumber == menuNumber);
+                var item = _outstandingDrinks.FirstOrDefault(d => d.MenuNumber == menuNumber);
                 _outstandingDrinks.Remove(item);
                 _serveredItemsValue += item.Price;
             }
@@ -133,12 +134,22 @@ namespace CQRSTutorial.Cafe.Domain
             _outstandingFood.AddRange(e.Items);
         }
 
+        public void Apply(FoodPrepared e)
+        {
+            foreach (var menuNumber in e.MenuNumbers)
+            {
+                var item = _outstandingFood.FirstOrDefault(f => f.MenuNumber == menuNumber);
+                _outstandingFood.Remove(item);
+                _preparedFood.Add(item);
+            }
+        }
+
         public void Apply(FoodServed e)
         {
             foreach (var menuNumber in e.MenuNumbers)
             {
-                var item = _outstandingFood.First(f => f.MenuNumber == menuNumber);
-                _outstandingFood.Remove(item);
+                var item = _preparedFood.FirstOrDefault(f => f.MenuNumber == menuNumber);
+                _preparedFood.Remove(item);
                 _serveredItemsValue += item.Price;
             }
         }
