@@ -259,6 +259,24 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         }
 
         [Test]
+        public void Unordered_food_can_not_be_marked_prepared()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }),
+                When(new PrepareFoodCommand
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood2.MenuNumber }
+                }),
+                ThenFailWith<FoodNotOutstanding>());
+        }
+
+        [Test]
         public void Ordered_food_can_be_served()
         {
             Test(

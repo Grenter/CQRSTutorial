@@ -23,6 +23,7 @@ namespace CQRSTutorial.Cafe.Domain
         private bool _tabOpen;
         private readonly List<OrderedItem> _outstandingDrinks = new List<OrderedItem>();
         private readonly List<OrderedItem> _outstandingFood = new List<OrderedItem>();
+        private readonly List<OrderedItem> _preparedFood = new List<OrderedItem>();
         private decimal _serveredItemsValue;
 
         public IEnumerable Handle(OpenTabCommand c)
@@ -74,6 +75,9 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(PrepareFoodCommand c)
         {
+            if (!AreItemsOutstanding(_outstandingFood, c.MenuNumbers))
+                throw new FoodNotOutstanding();
+
             yield return new FoodPrepared
             {
                 Id = c.Id,
