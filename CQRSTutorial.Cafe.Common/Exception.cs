@@ -21,4 +21,8 @@ namespace CQRSTutorial.Cafe.Common
     public class NotEnoughPaid : Exception
     {
     }
+
+    public class TabHasUnservedItems : Exception
+    {
+    }
 }

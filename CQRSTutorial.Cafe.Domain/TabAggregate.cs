@@ -102,18 +102,21 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(CloseTabCommand c)
         {
-            if (c.AmmountPaid < _serveredItemsValue)
+            if (c.AmountPaid < _serveredItemsValue)
                 throw new NotEnoughPaid();
 
             if (!_tabOpen)
                 throw new TabNotOpen();
 
+            if (_outstandingDrinks.Any() || _outstandingFood.Any() || _preparedFood.Any())
+                throw new TabHasUnservedItems();
+
             yield return new TabClosed
             {
                 Id = c.Id,
-                AmmountPaid = c.AmmountPaid,
+                AmountPaid = c.AmountPaid,
                 OrderValue = _serveredItemsValue,
-                TipValue = c.AmmountPaid - _serveredItemsValue
+                TipValue = c.AmountPaid - _serveredItemsValue
             };
         }
 
