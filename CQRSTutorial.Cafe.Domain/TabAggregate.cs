@@ -13,6 +13,7 @@ namespace CQRSTutorial.Cafe.Domain
         ICommandHander<PlaceOrderCommand>,
         ICommandHander<ServeDrinksCommand>,
         ICommandHander<ServeFoodCommand>,
+        ICommandHander<CloseTabCommand>,
         IApplyEvent<TabOpened>,
         IApplyEvent<DrinksOrdered>,
         IApplyEvent<DrinksServed>,
@@ -20,8 +21,10 @@ namespace CQRSTutorial.Cafe.Domain
         IApplyEvent<FoodServed>
     {
         private bool _tabOpen;
-        private List<int> _outstandingDrinks = new List<int>();
-        private List<int> _outstandingFood = new List<int>();
+        private List<OrderedItem> _outstandingDrinks = new List<OrderedItem>();
+        private List<OrderedItem> _outstandingFood = new List<OrderedItem>();
+        private List<OrderedItem> _preparedFood = new List<OrderedItem>();
+        private decimal _serveredItemsValue = 0M;
 
         public IEnumerable Handle(OpenTabCommand c)
         {
@@ -82,6 +85,17 @@ namespace CQRSTutorial.Cafe.Domain
             };
         }
 
+        public IEnumerable Handle(CloseTabCommand c)
+        {
+            yield return new TabClosed
+            {
+                Id = c.Id,
+                AmmountPaid = c.AmmountPaid,
+                OrderValue = _serveredItemsValue,
+                TipValue = c.AmmountPaid - _serveredItemsValue
+            };
+        }
+
         public void Apply(TabOpened e)
         {
             _tabOpen = true;
@@ -89,38 +103,43 @@ namespace CQRSTutorial.Cafe.Domain
 
         public void Apply(DrinksOrdered e)
         {
-            _outstandingDrinks.AddRange(e.Items.Select(i => i.MenuNumber));
+            _outstandingDrinks.AddRange(e.Items);
         }
 
         public void Apply(DrinksServed e)
         {
             foreach (var menuNumber in e.MenuNumbers)
             {
-                _outstandingDrinks.Remove(menuNumber);
+                var item = _outstandingDrinks.First(d => d.MenuNumber == menuNumber);
+                _outstandingDrinks.Remove(item);
+                _serveredItemsValue += item.Price;
             }
         }
 
         public void Apply(FoodOrdered e)
         {
-            _outstandingFood.AddRange(e.Items.Select(i => i.MenuNumber));
+            _outstandingFood.AddRange(e.Items);
         }
 
         public void Apply(FoodServed e)
         {
             foreach (var menuNumber in e.MenuNumbers)
             {
-                _outstandingFood.Remove(menuNumber);
+                var item = _outstandingFood.First(f => f.MenuNumber == menuNumber);
+                _outstandingFood.Remove(item);
+                _serveredItemsValue += item.Price;
             }
         }
 
         private bool AreDrinksOutstanding(IEnumerable<int> menuNumbers)
         {
-            var curOutstanding = new List<int>(_outstandingDrinks);
+            var curOutstanding = new List<OrderedItem>(_outstandingDrinks);
 
             foreach (var menuNumber in menuNumbers)
             {
-                if (curOutstanding.Contains(menuNumber))
-                    curOutstanding.Remove(menuNumber);
+                var item = curOutstanding.FirstOrDefault(i => i.MenuNumber == menuNumber);
+                if (curOutstanding.Contains(item))
+                    curOutstanding.Remove(item);
                 else
                     return false;
             }
@@ -128,14 +147,15 @@ namespace CQRSTutorial.Cafe.Domain
             return true;
         }
 
-        private bool AreFoodOutstanding(List<int> menuNumbers)
+        private bool AreFoodOutstanding(IEnumerable<int> menuNumbers)
         {
-            var curOutstanding = new List<int>(_outstandingFood);
+            var curOutstanding = new List<OrderedItem>(_outstandingFood);
 
             foreach (var menuNumber in menuNumbers)
             {
-                if (curOutstanding.Contains(menuNumber))
-                    curOutstanding.Remove(menuNumber);
+                var item = curOutstanding.FirstOrDefault(i => i.MenuNumber == menuNumber);
+                if (curOutstanding.Contains(item))
+                    curOutstanding.Remove(item);
                 else
                     return false;
             }

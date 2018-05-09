@@ -306,5 +306,39 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 }),
                 ThenFailWith<FoodNotOutstanding>());
         }
+
+        [Test]
+        public void Can_close_tab_with_tip()
+        {
+            Test(
+                Given(new TabOpened
+                    {
+                        Id = _testId,
+                        TableNumber = _testTable,
+                        Waiter = _testWaiter
+                    },
+                    new DrinksOrdered
+                    {
+                        Id = _testId,
+                        Items = new List<OrderedItem> { _testDrink2 }
+                    },
+                    new DrinksServed
+                    {
+                        Id = _testId,
+                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+                    }),
+                When(new CloseTabCommand
+                    {
+                        Id = _testId,
+                        AmmountPaid = _testDrink2.Price + 0.50M
+                    }),
+                Then (new TabClosed
+                {
+                    Id = _testId,
+                    AmmountPaid = _testDrink2.Price + 0.50M,
+                    OrderValue = _testDrink2.Price,
+                    TipValue = 0.50M
+                }));
+        }
     }
 }
