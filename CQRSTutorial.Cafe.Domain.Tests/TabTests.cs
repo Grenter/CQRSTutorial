@@ -233,6 +233,32 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         }
 
         [Test]
+        public void Ordered_food_can_be_marked_prepared()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }, new FoodOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testFood1, _testFood1 }
+                }),
+                When(new PrepareFoodCommand
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
+                }),
+                Then(new FoodPrepared
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
+                }));
+        }
+
+        [Test]
         public void Ordered_food_can_be_served()
         {
             Test(
@@ -278,7 +304,7 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                         Id = _testId,
                         MenuNumbers = new List<int> { _testFood2.MenuNumber }
                     }),
-                ThenFailWith<FoodNotOutstanding>()); 
+                ThenFailWith<FoodNotOutstanding>());
         }
 
         [Test]
@@ -312,11 +338,11 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         {
             Test(
                 Given(new TabOpened
-                    {
-                        Id = _testId,
-                        TableNumber = _testTable,
-                        Waiter = _testWaiter
-                    },
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                },
                     new DrinksOrdered
                     {
                         Id = _testId,
@@ -328,11 +354,11 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                         MenuNumbers = new List<int> { _testDrink2.MenuNumber }
                     }),
                 When(new CloseTabCommand
-                    {
-                        Id = _testId,
-                        AmmountPaid = _testDrink2.Price + 0.50M
-                    }),
-                Then (new TabClosed
+                {
+                    Id = _testId,
+                    AmmountPaid = _testDrink2.Price + 0.50M
+                }),
+                Then(new TabClosed
                 {
                     Id = _testId,
                     AmmountPaid = _testDrink2.Price + 0.50M,

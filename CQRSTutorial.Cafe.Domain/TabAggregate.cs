@@ -11,6 +11,7 @@ namespace CQRSTutorial.Cafe.Domain
         ICommandHander<OpenTabCommand>,
         ICommandHander<PlaceOrderCommand>,
         ICommandHander<ServeDrinksCommand>,
+        ICommandHander<PrepareFoodCommand>,
         ICommandHander<ServeFoodCommand>,
         ICommandHander<CloseTabCommand>,
         IApplyEvent<TabOpened>,
@@ -65,6 +66,15 @@ namespace CQRSTutorial.Cafe.Domain
                 throw new DrinksNotOutstanding();
 
             yield return new DrinksServed
+            {
+                Id = c.Id,
+                MenuNumbers = c.MenuNumbers
+            };
+        }
+
+        public IEnumerable Handle(PrepareFoodCommand c)
+        {
+            yield return new FoodPrepared
             {
                 Id = c.Id,
                 MenuNumbers = c.MenuNumbers
