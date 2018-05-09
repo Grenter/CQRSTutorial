@@ -281,11 +281,11 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         {
             Test(
                 Given(new TabOpened
-                    {
-                        Id = _testId,
-                        TableNumber = _testTable,
-                        Waiter = _testWaiter
-                    },
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                },
                     new FoodOrdered
                     {
                         Id = _testId,
@@ -392,11 +392,11 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         {
             Test(
                 Given(new TabOpened
-                    {
-                        Id = _testId,
-                        TableNumber = _testTable,
-                        Waiter = _testWaiter
-                    },
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                },
                     new FoodOrdered
                     {
                         Id = _testId,
@@ -449,11 +449,11 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         {
             Test(
                 Given(new TabOpened
-                    {
-                        Id = _testId,
-                        TableNumber = _testTable,
-                        Waiter = _testWaiter
-                    },
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                },
                     new DrinksOrdered
                     {
                         Id = _testId,
@@ -483,11 +483,11 @@ namespace CQRSTutorial.Cafe.Domain.Tests
         {
             Test(
                 Given(new TabOpened
-                    {
-                        Id = _testId,
-                        TableNumber = _testTable,
-                        Waiter = _testWaiter
-                    },
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                },
                     new DrinksOrdered
                     {
                         Id = _testId,
@@ -501,9 +501,41 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 When(new CloseTabCommand
                 {
                     Id = _testId,
-                    AmmountPaid = _testDrink2.Price /2
+                    AmmountPaid = _testDrink2.Price / 2
                 }),
                 ThenFailWith<NotEnoughPaid>());
+        }
+
+        [Test]
+        public void Can_not_close_tab_twice()
+        {
+            Test(
+                Given(new TabOpened
+                {
+                    Id = _testId,
+                    TableNumber = _testTable,
+                    Waiter = _testWaiter
+                }, new DrinksOrdered
+                {
+                    Id = _testId,
+                    Items = new List<OrderedItem> { _testDrink2 }
+                }, new DrinksServed
+                {
+                    Id = _testId,
+                    MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+                }, new TabClosed
+                {
+                    Id = _testId,
+                    AmmountPaid = _testDrink2.Price + 0.50M,
+                    OrderValue = _testDrink2.Price,
+                    TipValue = 0.50M
+                }),
+                When(new CloseTabCommand
+                {
+                    Id = _testId,
+                    AmmountPaid = _testDrink2.Price
+                }),
+                ThenFailWith<TabNotOpen>());
         }
     }
 }

@@ -20,7 +20,8 @@ namespace CQRSTutorial.Cafe.Domain
         IApplyEvent<DrinksServed>,
         IApplyEvent<FoodOrdered>,
         IApplyEvent<FoodPrepared>,
-        IApplyEvent<FoodServed>
+        IApplyEvent<FoodServed>,
+        IApplyEvent<TabClosed>
     {
         private bool _tabOpen;
         private readonly List<OrderedItem> _outstandingDrinks = new List<OrderedItem>();
@@ -103,7 +104,10 @@ namespace CQRSTutorial.Cafe.Domain
         {
             if (c.AmmountPaid < _serveredItemsValue)
                 throw new NotEnoughPaid();
-        
+
+            if (!_tabOpen)
+                throw new TabNotOpen();
+
             yield return new TabClosed
             {
                 Id = c.Id,
@@ -156,6 +160,11 @@ namespace CQRSTutorial.Cafe.Domain
                 _preparedFood.Remove(item);
                 _serveredItemsValue += item.Price;
             }
+        }
+
+        public void Apply(TabClosed e)
+        {
+            _tabOpen = false;
         }
 
         private static bool AreItemsOutstanding(IEnumerable<int> menuNumbers, IEnumerable<OrderedItem>oustandingItems)
