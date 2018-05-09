@@ -71,17 +71,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Service1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Service1.Designer.cs">
-      <DependentUpon>Service1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="MessageBus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TabCommandService.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="TabCommandService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

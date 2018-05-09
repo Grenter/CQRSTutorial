@@ -6,11 +6,7 @@ namespace CQRSTutorial.Cafe.CommandService
     {
         static void Main()
         {
-            var servicesToRun = new ServiceBase[]
-            {
-                new TabCommandService() 
-            };
-            ServiceBase.Run(servicesToRun);
+
         }
     }
 }

@@ -1,15 +1,21 @@
-﻿using System.ServiceProcess;
+﻿using MassTransit;
 
 namespace CQRSTutorial.Cafe.CommandService
 {
-    public class TabCommandService : ServiceBase
+    public class TabCommandService
     {
-        protected override void OnStart(string[] args)
+        private IBusControl _busControl;
+        private IMessageBus _messageBus;
+
+        public TabCommandService(IMessageBus messageBus)
         {
+            _messageBus = messageBus;
         }
 
-        protected override void OnStop()
+        public void Start()
         {
+            _busControl = _messageBus.Create();
+            _busControl.Start();
         }
     }
 }
