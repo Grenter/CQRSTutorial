@@ -1,5 +1,4 @@
-﻿using System;
-using CQRSTutorial.Cafe.Commands;
+﻿using CQRSTutorial.Cafe.Commands;
 using CQRSTutorial.Cafe.Common;
 using CQRSTutorial.Cafe.Events;
 using System.Collections;
@@ -21,10 +20,9 @@ namespace CQRSTutorial.Cafe.Domain
         IApplyEvent<FoodServed>
     {
         private bool _tabOpen;
-        private List<OrderedItem> _outstandingDrinks = new List<OrderedItem>();
-        private List<OrderedItem> _outstandingFood = new List<OrderedItem>();
-        private List<OrderedItem> _preparedFood = new List<OrderedItem>();
-        private decimal _serveredItemsValue = 0M;
+        private readonly List<OrderedItem> _outstandingDrinks = new List<OrderedItem>();
+        private readonly List<OrderedItem> _outstandingFood = new List<OrderedItem>();
+        private decimal _serveredItemsValue;
 
         public IEnumerable Handle(OpenTabCommand c)
         {
@@ -63,7 +61,7 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(ServeDrinksCommand c)
         {
-            if (!AreDrinksOutstanding(c.MenuNumbers))
+            if (!AreItemsOutstanding(_outstandingDrinks, c.MenuNumbers))
                 throw new DrinksNotOutstanding();
 
             yield return new DrinksServed
@@ -75,7 +73,7 @@ namespace CQRSTutorial.Cafe.Domain
 
         public IEnumerable Handle(ServeFoodCommand c)
         {
-            if (!AreFoodOutstanding(c.MenuNumbers))
+            if (!AreItemsOutstanding(_outstandingFood, c.MenuNumbers))
                 throw new FoodNotOutstanding();
 
             yield return new FoodServed
@@ -131,25 +129,9 @@ namespace CQRSTutorial.Cafe.Domain
             }
         }
 
-        private bool AreDrinksOutstanding(IEnumerable<int> menuNumbers)
+        private bool AreItemsOutstanding(IEnumerable<OrderedItem>oustandingItems, IEnumerable<int> menuNumbers)
         {
-            var curOutstanding = new List<OrderedItem>(_outstandingDrinks);
-
-            foreach (var menuNumber in menuNumbers)
-            {
-                var item = curOutstanding.FirstOrDefault(i => i.MenuNumber == menuNumber);
-                if (curOutstanding.Contains(item))
-                    curOutstanding.Remove(item);
-                else
-                    return false;
-            }
-
-            return true;
-        }
-
-        private bool AreFoodOutstanding(IEnumerable<int> menuNumbers)
-        {
-            var curOutstanding = new List<OrderedItem>(_outstandingFood);
+            var curOutstanding = new List<OrderedItem>(oustandingItems);
 
             foreach (var menuNumber in menuNumbers)
             {
