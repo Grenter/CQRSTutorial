@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace CQRSTutorial.Cafe.Messaging
 {
-    public class RabbitMqEndpointProvider : ISendEndPointProvider
+    public class RabbitMqEndpointProvider : ISendEndpointProvider
     {
         private readonly IBusControl _busControl;
         private readonly IRabbitMqConfiguration _rabbitMqConfiguration;

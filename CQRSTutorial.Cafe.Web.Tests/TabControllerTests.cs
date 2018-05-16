@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 using CQRSTutorial.Cafe.Messaging;
+using ISendEndpointProvider = CQRSTutorial.Cafe.Messaging.ISendEndpointProvider;
 
 namespace CQRSTutorial.Cafe.Web.Tests
 {
@@ -15,7 +16,7 @@ namespace CQRSTutorial.Cafe.Web.Tests
         private TabController _tabController;
         private CommandSender _commandSender;
         private ISendEndpoint _sendEndPoint;
-        private ISendEndPointProvider _sendEndPointProvider;
+        private ISendEndpointProvider _sendEndpointProvider;
         private OpenTabDto _openTabDto;
         private ISendEndpointConfiguration _endpointConfiguration;
 
@@ -23,14 +24,14 @@ namespace CQRSTutorial.Cafe.Web.Tests
         public void Setup()
         {
             _sendEndPoint = Substitute.For<ISendEndpoint>();
-            _sendEndPointProvider = Substitute.For<ISendEndPointProvider>();
+            _sendEndpointProvider = Substitute.For<ISendEndpointProvider>();
 
             _endpointConfiguration = Substitute.For<ISendEndpointConfiguration>();
             _endpointConfiguration.Queue.Returns("cafe.waiter.command.service");
 
-            _sendEndPointProvider.GetEndpoint(Arg.Is<string>(queueName => queueName == _endpointConfiguration.Queue))
+            _sendEndpointProvider.GetEndpoint(Arg.Is<string>(queueName => queueName == _endpointConfiguration.Queue))
                                     .Returns(Task.FromResult(_sendEndPoint));
-            _commandSender = new CommandSender(_sendEndPointProvider, _endpointConfiguration);
+            _commandSender = new CommandSender(_sendEndpointProvider, _endpointConfiguration);
             _openTabDto = CreateOpenTabDto();
         }
 

@@ -3,7 +3,7 @@ using MassTransit;
 
 namespace CQRSTutorial.Cafe.Messaging
 {
-    public interface ISendEndPointProvider
+    public interface ISendEndpointProvider
     {
         Task<ISendEndpoint> GetEndpoint(string queueName);
     }

@@ -5,18 +5,18 @@ namespace CQRSTutorial.Cafe.Messaging
 {
     public class CommandSender : ICommandSender
     {
-        private readonly ISendEndPointProvider _sendEndPointProvider;
+        private readonly ISendEndpointProvider _sendEndpointProvider;
         private ISendEndpointConfiguration _sendEndpointConfiguration;
 
-        public CommandSender(ISendEndPointProvider sendEndPointProvider, ISendEndpointConfiguration sendEndpointConfiguration)
+        public CommandSender(ISendEndpointProvider sendEndpointProvider, ISendEndpointConfiguration sendEndpointConfiguration)
         {
-            _sendEndPointProvider = sendEndPointProvider;
+            _sendEndpointProvider = sendEndpointProvider;
             _sendEndpointConfiguration = sendEndpointConfiguration;
         }
 
         public async Task Send<TCommand>(TCommand command) where TCommand : class, ICommand
         {
-            var sendEndpoint = await _sendEndPointProvider.GetEndpoint(_sendEndpointConfiguration.Queue);
+            var sendEndpoint = await _sendEndpointProvider.GetEndpoint(_sendEndpointConfiguration.Queue);
             await sendEndpoint.Send(command);
         }
     }
