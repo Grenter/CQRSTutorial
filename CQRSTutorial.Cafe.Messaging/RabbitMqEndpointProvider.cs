@@ -1,8 +1,8 @@
-﻿using MassTransit;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using MassTransit;
 
-namespace CQRSTutorial.Cafe.Web.Messaging
+namespace CQRSTutorial.Cafe.Messaging
 {
     public class RabbitMqEndpointProvider : ISendEndPointProvider
     {

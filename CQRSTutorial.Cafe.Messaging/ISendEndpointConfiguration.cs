@@ -1,4 +1,4 @@
-﻿namespace CQRSTutorial.Cafe.Web.Messaging
+﻿namespace CQRSTutorial.Cafe.Messaging
 {
     public interface ISendEndpointConfiguration
     {

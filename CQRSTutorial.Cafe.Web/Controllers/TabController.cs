@@ -1,5 +1,5 @@
 ﻿using CQRSTutorial.Cafe.Commands;
-using CQRSTutorial.Cafe.Web.Messaging;
+using CQRSTutorial.Cafe.Messaging;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

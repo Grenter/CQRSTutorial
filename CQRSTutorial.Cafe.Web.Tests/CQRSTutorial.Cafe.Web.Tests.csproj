@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CQRSTutorial.Cafe.Messaging\CQRSTutorial.Cafe.Messaging.csproj" />
     <ProjectReference Include="..\CQRSTutorial.Cafe.Web\CQRSTutorial.Cafe.Web.csproj" />
   </ItemGroup>
 

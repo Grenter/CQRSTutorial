@@ -1,11 +1,11 @@
 ﻿using CQRSTutorial.Cafe.Commands;
 using CQRSTutorial.Cafe.Web.Controllers;
-using CQRSTutorial.Cafe.Web.Messaging;
 using MassTransit;
 using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using CQRSTutorial.Cafe.Messaging;
 
 namespace CQRSTutorial.Cafe.Web.Tests
 {

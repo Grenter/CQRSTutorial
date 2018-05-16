@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CQRSTutorial.Cafe.Commands;
 
-namespace CQRSTutorial.Cafe.Web.Messaging
+namespace CQRSTutorial.Cafe.Messaging
 {
     public interface ICommandSender
     {
