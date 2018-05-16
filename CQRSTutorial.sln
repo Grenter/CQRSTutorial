@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Cafe.CommandSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Cafe.CommandService.Tests", "CQRSTutorial.Cafe.CommandService.Tests\CQRSTutorial.Cafe.CommandService.Tests.csproj", "{B3D4B30F-2918-43B9-9D3F-9F95FF7E0763}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Cafe.Web", "CQRSTutorial.Cafe.Web\CQRSTutorial.Cafe.Web.csproj", "{F40E317B-06CD-43BE-A93C-3829BBEC2ACC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Cafe.Web.Tests", "CQRSTutorial.Cafe.Web.Tests\CQRSTutorial.Cafe.Web.Tests.csproj", "{22D1547E-E7E5-4616-8EFC-AD82F9ACA9E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{B3D4B30F-2918-43B9-9D3F-9F95FF7E0763}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3D4B30F-2918-43B9-9D3F-9F95FF7E0763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3D4B30F-2918-43B9-9D3F-9F95FF7E0763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F40E317B-06CD-43BE-A93C-3829BBEC2ACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40E317B-06CD-43BE-A93C-3829BBEC2ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40E317B-06CD-43BE-A93C-3829BBEC2ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40E317B-06CD-43BE-A93C-3829BBEC2ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22D1547E-E7E5-4616-8EFC-AD82F9ACA9E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D1547E-E7E5-4616-8EFC-AD82F9ACA9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D1547E-E7E5-4616-8EFC-AD82F9ACA9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D1547E-E7E5-4616-8EFC-AD82F9ACA9E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
