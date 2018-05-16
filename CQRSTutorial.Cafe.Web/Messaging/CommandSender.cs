@@ -1,22 +1,22 @@
-﻿using System;
+﻿using CQRSTutorial.Cafe.Commands;
 using System.Threading.Tasks;
-using CQRSTutorial.Cafe.Commands;
-using MassTransit;
 
 namespace CQRSTutorial.Cafe.Web.Messaging
 {
     public class CommandSender : ICommandSender
     {
-        private ISendEndPointProvider _sendEndPointProvider;
+        private readonly ISendEndPointProvider _sendEndPointProvider;
+        private ISendEndpointConfiguration _sendEndpointConfiguration;
 
-        public CommandSender(ISendEndPointProvider sendEndPointProvider)
+        public CommandSender(ISendEndPointProvider sendEndPointProvider, ISendEndpointConfiguration sendEndpointConfiguration)
         {
             _sendEndPointProvider = sendEndPointProvider;
+            _sendEndpointConfiguration = sendEndpointConfiguration;
         }
 
         public async Task Send<TCommand>(TCommand command) where TCommand : class, ICommand
         {
-            var sendEndpoint = await _sendEndPointProvider.GetEndpoint("cafe.waiter.command.service");
+            var sendEndpoint = await _sendEndPointProvider.GetEndpoint(_sendEndpointConfiguration.Queue);
             await sendEndpoint.Send(command);
         }
     }

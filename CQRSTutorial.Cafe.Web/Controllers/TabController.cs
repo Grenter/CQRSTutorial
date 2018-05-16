@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CQRSTutorial.Cafe.Commands;
+﻿using CQRSTutorial.Cafe.Commands;
 using CQRSTutorial.Cafe.Web.Messaging;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace CQRSTutorial.Cafe.Web.Controllers
 {
@@ -13,7 +10,7 @@ namespace CQRSTutorial.Cafe.Web.Controllers
     [Route("api/Tab")]
     public class TabController : Controller
     {
-        private ICommandSender _commandSender;
+        private readonly ICommandSender _commandSender;
 
         public TabController(ICommandSender commandSender)
         {

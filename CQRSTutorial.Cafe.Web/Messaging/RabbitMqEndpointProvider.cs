@@ -1,33 +1,32 @@
-﻿using System;
-using MassTransit;
+﻿using MassTransit;
+using System;
 using System.Threading.Tasks;
 
 namespace CQRSTutorial.Cafe.Web.Messaging
 {
     public class RabbitMqEndpointProvider : ISendEndPointProvider
     {
-        private const string BaseUri = "rabbitmq://localhost";
+        private readonly IBusControl _busControl;
+        private readonly IRabbitMqConfiguration _rabbitMqConfiguration;
 
-        private IBusControl _busControl;
-
-        public RabbitMqEndpointProvider()
+        public RabbitMqEndpointProvider(IRabbitMqConfiguration rabbitMqConfiguration)
         {
+            _rabbitMqConfiguration = rabbitMqConfiguration;
+
             _busControl = Bus.Factory.CreateUsingRabbitMq(rmqf =>
             {
-                rmqf.Host(new Uri(BaseUri), h =>
+                rmqf.Host(new Uri(rabbitMqConfiguration.Uri), h =>
                 {
-                    h.Username("guest");
-                    h.Password("guest");
+                    h.Username(rabbitMqConfiguration.Username);
+                    h.Password(rabbitMqConfiguration.Password);
                 });
             });
         }
 
         public async Task<ISendEndpoint> GetEndpoint(string queueName)
         {
-            var uri = new Uri($"{BaseUri}/{queueName}");
+            var uri = new Uri($"{_rabbitMqConfiguration.Uri}/{queueName}");
             return await _busControl.GetSendEndpoint(uri);
         }
     }
-
-
 }
