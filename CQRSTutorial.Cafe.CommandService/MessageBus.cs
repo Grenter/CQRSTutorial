@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using System;
+using CQRSTutorial.Cafe.Messaging;
 
 namespace CQRSTutorial.Cafe.CommandService
 {
@@ -16,10 +17,5 @@ namespace CQRSTutorial.Cafe.CommandService
                 });
             });
         }
-    }
-
-    public interface IMessageBus
-    {
-        IBusControl Create();
     }
 }

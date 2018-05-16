@@ -1,3 +1,4 @@
+using CQRSTutorial.Cafe.Messaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,8 @@ namespace CQRSTutorial.Cafe.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.Add(new ServiceDescriptor(typeof(ICommandSender), typeof(CommandSender), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(ISendEndpointProvider), typeof(RabbitMqEndpointProvider), ServiceLifetime.Transient));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

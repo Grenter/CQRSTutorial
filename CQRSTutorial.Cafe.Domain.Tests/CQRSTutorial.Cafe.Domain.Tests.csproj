@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CQRSTutorial.Cafe.Domain\CQRSTutorial.Cafe.Domain.csproj" />
-    <ProjectReference Include="..\CQRSTutorial.Cafe.Events\CQRSTutorial.Cafe.Events.csproj" />
   </ItemGroup>
 
   <ItemGroup>
