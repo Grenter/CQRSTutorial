@@ -4,12 +4,7 @@ using System.Threading.Tasks;
 
 namespace CQRSTutorial.Cafe.Web.Messaging
 {
-    public interface IEndPointProvider
-    {
-        Task<ISendEndpoint> GetEndpoint(string queueName);
-    }
-
-    public class RabbitMqEndpointProvider : IEndPointProvider
+    public class RabbitMqEndpointProvider : ISendEndPointProvider
     {
         private const string BaseUri = "rabbitmq://localhost";
 

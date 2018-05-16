@@ -17,7 +17,7 @@ namespace CQRSTutorial.Cafe.Web.Tests
         private string _waiter;
         private int _tableNumber;
         private ISendEndpoint _sendEndPoint;
-        private IEndPointProvider _endPointProvider;
+        private ISendEndPointProvider _sendEndPointProvider;
 
         [SetUp]
         public void Setup()
@@ -25,9 +25,9 @@ namespace CQRSTutorial.Cafe.Web.Tests
             _waiter = "David Grenter";
             _tableNumber = 12;
             _sendEndPoint = Substitute.For<ISendEndpoint>();
-            _endPointProvider = Substitute.For<IEndPointProvider>();
-            _endPointProvider.GetEndpoint(Arg.Is<string>(queueName => queueName == "cafe.waiter.command.service")).Returns(Task.FromResult(_sendEndPoint));
-            _commandSender = new CommandSender(_endPointProvider);
+            _sendEndPointProvider = Substitute.For<ISendEndPointProvider>();
+            _sendEndPointProvider.GetEndpoint(Arg.Is<string>(queueName => queueName == "cafe.waiter.command.service")).Returns(Task.FromResult(_sendEndPoint));
+            _commandSender = new CommandSender(_sendEndPointProvider);
         }
 
         [Test]

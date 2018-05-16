@@ -7,22 +7,17 @@ namespace CQRSTutorial.Cafe.Web.Messaging
 {
     public class CommandSender : ICommandSender
     {
-        private IEndPointProvider _endPointProvider;
+        private ISendEndPointProvider _sendEndPointProvider;
 
-        public CommandSender(IEndPointProvider endPointProvider)
+        public CommandSender(ISendEndPointProvider sendEndPointProvider)
         {
-            _endPointProvider = endPointProvider;
+            _sendEndPointProvider = sendEndPointProvider;
         }
 
         public async Task Send<TCommand>(TCommand command) where TCommand : class, ICommand
         {
-            var sendEndpoint = await _endPointProvider.GetEndpoint("cafe.waiter.command.service");
+            var sendEndpoint = await _sendEndPointProvider.GetEndpoint("cafe.waiter.command.service");
             await sendEndpoint.Send(command);
         }
-    }
-
-    public interface ICommandSender
-    {
-        Task Send<TCommand>(TCommand command) where TCommand : class, ICommand;
     }
 }
