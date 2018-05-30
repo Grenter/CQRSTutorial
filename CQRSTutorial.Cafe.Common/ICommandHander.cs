@@ -2,8 +2,13 @@
 
 namespace CQRSTutorial.Cafe.Common
 {
-    public interface ICommandHander<TCommand>
+    public interface ICommandHander<TCommand> : ICommandHandler
     {
-        IEnumerable Handle(TCommand c);
+        IEnumerable Handle(TCommand command);
+    }
+
+    public interface ICommandHandler
+    {
+        bool CanHandle(ICommand command);
     }
 }

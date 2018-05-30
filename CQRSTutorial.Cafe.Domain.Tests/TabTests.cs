@@ -73,540 +73,540 @@ namespace CQRSTutorial.Cafe.Domain.Tests
                 ));
         }
 
-        [Test]
-        public void Can_not_order_with_unopened_tab()
-        {
-            Test(
-                Given(),
-                When(new PlaceOrderCommand
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink1 }
-                }),
-                ThenFailWith<TabNotOpen>());
-        }
+        //[Test]
+        //public void Can_not_order_with_unopened_tab()
+        //{
+        //    Test(
+        //        Given(),
+        //        When(new PlaceOrderCommand
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink1 }
+        //        }),
+        //        ThenFailWith<TabNotOpen>());
+        //}
 
-        [Test]
-        public void Can_place_drinks_order()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }),
-                When(new PlaceOrderCommand
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
-                }),
-                Then(new DrinksOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
-                }));
-        }
+        //[Test]
+        //public void Can_place_drinks_order()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }),
+        //        When(new PlaceOrderCommand
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
+        //        }),
+        //        Then(new DrinksOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
+        //        }));
+        //}
 
-        [Test]
-        public void Can_place_food_order()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }),
-                When(new PlaceOrderCommand
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
-                }),
-                Then(new FoodOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
-                }));
-        }
+        //[Test]
+        //public void Can_place_food_order()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }),
+        //        When(new PlaceOrderCommand
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1, _testFood2 }
+        //        }),
+        //        Then(new FoodOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1, _testFood2 }
+        //        }));
+        //}
 
-        [Test]
-        public void Can_place_food_and_drink_order()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }),
-                When(new PlaceOrderCommand
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1, _testDrink2 }
-                }),
-                Then(new DrinksOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink2 }
-                },
-                    new FoodOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testFood1 }
-                    }));
-        }
+        //[Test]
+        //public void Can_place_food_and_drink_order()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }),
+        //        When(new PlaceOrderCommand
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1, _testDrink2 }
+        //        }),
+        //        Then(new DrinksOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink2 }
+        //        },
+        //            new FoodOrdered
+        //            {
+        //                Id = _testId,
+        //                Items = new List<OrderedItem> { _testFood1 }
+        //            }));
+        //}
 
-        [Test]
-        public void Ordered_drinks_can_be_served()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new DrinksOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
-                }),
-                When(new ServeDrinksCommand
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testDrink1.MenuNumber, _testDrink2.MenuNumber }
-                }),
-                Then(new DrinksServed
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testDrink1.MenuNumber, _testDrink2.MenuNumber }
-                }));
-        }
+        //[Test]
+        //public void Ordered_drinks_can_be_served()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new DrinksOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink1, _testDrink2 }
+        //        }),
+        //        When(new ServeDrinksCommand
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testDrink1.MenuNumber, _testDrink2.MenuNumber }
+        //        }),
+        //        Then(new DrinksServed
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testDrink1.MenuNumber, _testDrink2.MenuNumber }
+        //        }));
+        //}
 
-        [Test]
-        public void Can_not_serve_an_unordered_drink()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new DrinksOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink1 }
-                }),
-                When(
-                    new ServeDrinksCommand
-                    {
-                        Id = _testId,
-                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
-                    }),
-                ThenFailWith<DrinksNotOutstanding>());
-        }
+        //[Test]
+        //public void Can_not_serve_an_unordered_drink()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new DrinksOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink1 }
+        //        }),
+        //        When(
+        //            new ServeDrinksCommand
+        //            {
+        //                Id = _testId,
+        //                MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+        //            }),
+        //        ThenFailWith<DrinksNotOutstanding>());
+        //}
 
-        [Test]
-        public void Can_not_serve_an_ordered_drink_twice()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new DrinksOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink1 }
-                }, new DrinksServed
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testDrink1.MenuNumber }
-                }),
-                When(new ServeDrinksCommand
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testDrink1.MenuNumber }
-                }),
-                ThenFailWith<DrinksNotOutstanding>());
-        }
+        //[Test]
+        //public void Can_not_serve_an_ordered_drink_twice()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new DrinksOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink1 }
+        //        }, new DrinksServed
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testDrink1.MenuNumber }
+        //        }),
+        //        When(new ServeDrinksCommand
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testDrink1.MenuNumber }
+        //        }),
+        //        ThenFailWith<DrinksNotOutstanding>());
+        //}
 
-        [Test]
-        public void Ordered_food_can_be_marked_prepared()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new FoodOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1, _testFood1 }
-                }),
-                When(new PrepareFoodCommand
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
-                }),
-                Then(new FoodPrepared
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
-                }));
-        }
+        //[Test]
+        //public void Ordered_food_can_be_marked_prepared()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new FoodOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1, _testFood1 }
+        //        }),
+        //        When(new PrepareFoodCommand
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
+        //        }),
+        //        Then(new FoodPrepared
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
+        //        }));
+        //}
 
-        [Test]
-        public void Unordered_food_can_not_be_marked_prepared()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }),
-                When(new PrepareFoodCommand
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood2.MenuNumber }
-                }),
-                ThenFailWith<FoodNotOutstanding>());
-        }
+        //[Test]
+        //public void Unordered_food_can_not_be_marked_prepared()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }),
+        //        When(new PrepareFoodCommand
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood2.MenuNumber }
+        //        }),
+        //        ThenFailWith<FoodNotOutstanding>());
+        //}
 
-        [Test]
-        public void Can_not_mark_food_as_prepared_twice()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                },
-                    new FoodOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testFood1, _testFood1 }
-                    },
-                    new FoodPrepared
-                    {
-                        Id = _testId,
-                        MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
-                    }),
-                When(new PrepareFoodCommand()
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber }
-                }),
-                ThenFailWith<FoodNotOutstanding>());
-        }
+        //[Test]
+        //public void Can_not_mark_food_as_prepared_twice()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        },
+        //            new FoodOrdered
+        //            {
+        //                Id = _testId,
+        //                Items = new List<OrderedItem> { _testFood1, _testFood1 }
+        //            },
+        //            new FoodPrepared
+        //            {
+        //                Id = _testId,
+        //                MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood1.MenuNumber }
+        //            }),
+        //        When(new PrepareFoodCommand()
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber }
+        //        }),
+        //        ThenFailWith<FoodNotOutstanding>());
+        //}
 
-        [Test]
-        public void Can_serve_prepared_food()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new FoodOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
-                }, new FoodPrepared
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
-                }),
-                When(new ServeFoodCommand
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
-                }),
-                Then(new FoodServed
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
-                }));
-        }
+        //[Test]
+        //public void Can_serve_prepared_food()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new FoodOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1, _testFood2 }
+        //        }, new FoodPrepared
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
+        //        }),
+        //        When(new ServeFoodCommand
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
+        //        }),
+        //        Then(new FoodServed
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
+        //        }));
+        //}
 
-        [Test]
-        public void Can_not_serve_an_unordered_food_item()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new FoodOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1 }
-                }),
-                When(
-                    new ServeFoodCommand
-                    {
-                        Id = _testId,
-                        MenuNumbers = new List<int> { _testFood2.MenuNumber }
-                    }),
-                ThenFailWith<FoodNotPrepared>());
-        }
+        //[Test]
+        //public void Can_not_serve_an_unordered_food_item()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new FoodOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1 }
+        //        }),
+        //        When(
+        //            new ServeFoodCommand
+        //            {
+        //                Id = _testId,
+        //                MenuNumbers = new List<int> { _testFood2.MenuNumber }
+        //            }),
+        //        ThenFailWith<FoodNotPrepared>());
+        //}
 
-        [Test]
-        public void Can_not_serve_an_unordered_food_item_twice()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new FoodOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1, _testFood2 }
-                }, new FoodPrepared
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
-                }, new FoodServed
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood2.MenuNumber, _testFood1.MenuNumber }
-                }),
-                When(new ServeFoodCommand
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood2.MenuNumber, _testFood1.MenuNumber }
-                }),
-                ThenFailWith<FoodNotPrepared>());
-        }
+        //[Test]
+        //public void Can_not_serve_an_unordered_food_item_twice()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new FoodOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1, _testFood2 }
+        //        }, new FoodPrepared
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber, _testFood2.MenuNumber }
+        //        }, new FoodServed
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood2.MenuNumber, _testFood1.MenuNumber }
+        //        }),
+        //        When(new ServeFoodCommand
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood2.MenuNumber, _testFood1.MenuNumber }
+        //        }),
+        //        ThenFailWith<FoodNotPrepared>());
+        //}
 
-        [Test]
-        public void Can_not_serve_ordered_but_unprepared_Food()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                },
-                    new FoodOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testFood1 }
-                    }),
-                When(new ServeFoodCommand
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber }
-                }),
-                ThenFailWith<FoodNotPrepared>());
-        }
+        //[Test]
+        //public void Can_not_serve_ordered_but_unprepared_Food()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        },
+        //            new FoodOrdered
+        //            {
+        //                Id = _testId,
+        //                Items = new List<OrderedItem> { _testFood1 }
+        //            }),
+        //        When(new ServeFoodCommand
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber }
+        //        }),
+        //        ThenFailWith<FoodNotPrepared>());
+        //}
 
-        [Test]
-        public void Can_close_tab_with_tip()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                },
-                    new DrinksOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testDrink2 }
-                    },
-                    new DrinksServed
-                    {
-                        Id = _testId,
-                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
-                    }),
-                When(new CloseTabCommand
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price + 0.50M
-                }),
-                Then(new TabClosed
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price + 0.50M,
-                    OrderValue = _testDrink2.Price,
-                    TipValue = 0.50M
-                }));
-        }
+        //[Test]
+        //public void Can_close_tab_with_tip()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        },
+        //            new DrinksOrdered
+        //            {
+        //                Id = _testId,
+        //                Items = new List<OrderedItem> { _testDrink2 }
+        //            },
+        //            new DrinksServed
+        //            {
+        //                Id = _testId,
+        //                MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+        //            }),
+        //        When(new CloseTabCommand
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price + 0.50M
+        //        }),
+        //        Then(new TabClosed
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price + 0.50M,
+        //            OrderValue = _testDrink2.Price,
+        //            TipValue = 0.50M
+        //        }));
+        //}
 
-        [Test]
-        public void Can_close_tab_by_paying_exact_amount()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                },
-                    new DrinksOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testDrink2 }
-                    },
-                    new DrinksServed
-                    {
-                        Id = _testId,
-                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
-                    }),
-                When(new CloseTabCommand
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price
-                }),
-                Then(new TabClosed
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price,
-                    OrderValue = _testDrink2.Price,
-                    TipValue = 0.0M
-                }));
-        }
+        //[Test]
+        //public void Can_close_tab_by_paying_exact_amount()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        },
+        //            new DrinksOrdered
+        //            {
+        //                Id = _testId,
+        //                Items = new List<OrderedItem> { _testDrink2 }
+        //            },
+        //            new DrinksServed
+        //            {
+        //                Id = _testId,
+        //                MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+        //            }),
+        //        When(new CloseTabCommand
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price
+        //        }),
+        //        Then(new TabClosed
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price,
+        //            OrderValue = _testDrink2.Price,
+        //            TipValue = 0.0M
+        //        }));
+        //}
 
-        [Test]
-        public void Can_not_close_tab_when_not_fully_paid()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                },
-                    new DrinksOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testDrink2 }
-                    },
-                    new DrinksServed
-                    {
-                        Id = _testId,
-                        MenuNumbers = new List<int> { _testDrink2.MenuNumber }
-                    }),
-                When(new CloseTabCommand
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price / 2
-                }),
-                ThenFailWith<NotEnoughPaid>());
-        }
+        //[Test]
+        //public void Can_not_close_tab_when_not_fully_paid()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        },
+        //            new DrinksOrdered
+        //            {
+        //                Id = _testId,
+        //                Items = new List<OrderedItem> { _testDrink2 }
+        //            },
+        //            new DrinksServed
+        //            {
+        //                Id = _testId,
+        //                MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+        //            }),
+        //        When(new CloseTabCommand
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price / 2
+        //        }),
+        //        ThenFailWith<NotEnoughPaid>());
+        //}
 
-        [Test]
-        public void Can_not_close_tab_twice()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new DrinksOrdered
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testDrink2 }
-                }, new DrinksServed
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testDrink2.MenuNumber }
-                }, new TabClosed
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price + 0.50M,
-                    OrderValue = _testDrink2.Price,
-                    TipValue = 0.50M
-                }),
-                When(new CloseTabCommand
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price
-                }),
-                ThenFailWith<TabNotOpen>());
-        }
+        //[Test]
+        //public void Can_not_close_tab_twice()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new DrinksOrdered
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testDrink2 }
+        //        }, new DrinksServed
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testDrink2.MenuNumber }
+        //        }, new TabClosed
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price + 0.50M,
+        //            OrderValue = _testDrink2.Price,
+        //            TipValue = 0.50M
+        //        }),
+        //        When(new CloseTabCommand
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price
+        //        }),
+        //        ThenFailWith<TabNotOpen>());
+        //}
 
-        [Test]
-        public void Can_not_close_tab_with_unserved_drinks()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                },
-                    new DrinksOrdered
-                    {
-                        Id = _testId,
-                        Items = new List<OrderedItem> { _testDrink2 }
-                    }),
-                When(new CloseTabCommand
-                {
-                    Id = _testId,
-                    AmountPaid = _testDrink2.Price
-                }),
-                ThenFailWith<TabHasUnservedItems>());
-        }
+        //[Test]
+        //public void Can_not_close_tab_with_unserved_drinks()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        },
+        //            new DrinksOrdered
+        //            {
+        //                Id = _testId,
+        //                Items = new List<OrderedItem> { _testDrink2 }
+        //            }),
+        //        When(new CloseTabCommand
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testDrink2.Price
+        //        }),
+        //        ThenFailWith<TabHasUnservedItems>());
+        //}
 
-        [Test]
-        public void Can_not_close_tab_with_unserved_food()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new FoodOrdered()
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1 }
-                }, new FoodPrepared
-                {
-                    Id = _testId,
-                    MenuNumbers = new List<int> { _testFood1.MenuNumber }
-                }),
-                When(new CloseTabCommand
-                {
-                    Id = _testId,
-                    AmountPaid = _testFood1.Price
-                }),
-                ThenFailWith<TabHasUnservedItems>());
-        }
+        //[Test]
+        //public void Can_not_close_tab_with_unserved_food()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new FoodOrdered()
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1 }
+        //        }, new FoodPrepared
+        //        {
+        //            Id = _testId,
+        //            MenuNumbers = new List<int> { _testFood1.MenuNumber }
+        //        }),
+        //        When(new CloseTabCommand
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testFood1.Price
+        //        }),
+        //        ThenFailWith<TabHasUnservedItems>());
+        //}
 
-        [Test]
-        public void Can_not_close_tab_with_unprepared_food()
-        {
-            Test(
-                Given(new TabOpened
-                {
-                    Id = _testId,
-                    TableNumber = _testTable,
-                    Waiter = _testWaiter
-                }, new FoodOrdered()
-                {
-                    Id = _testId,
-                    Items = new List<OrderedItem> { _testFood1 }
-                }),
-                When(new CloseTabCommand
-                {
-                    Id = _testId,
-                    AmountPaid = _testFood1.Price
-                }),
-                ThenFailWith<TabHasUnservedItems>());
-        }
+        //[Test]
+        //public void Can_not_close_tab_with_unprepared_food()
+        //{
+        //    Test(
+        //        Given(new TabOpened
+        //        {
+        //            Id = _testId,
+        //            TableNumber = _testTable,
+        //            Waiter = _testWaiter
+        //        }, new FoodOrdered()
+        //        {
+        //            Id = _testId,
+        //            Items = new List<OrderedItem> { _testFood1 }
+        //        }),
+        //        When(new CloseTabCommand
+        //        {
+        //            Id = _testId,
+        //            AmountPaid = _testFood1.Price
+        //        }),
+        //        ThenFailWith<TabHasUnservedItems>());
+        //}
     }
 }

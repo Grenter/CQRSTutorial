@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CQRSTutorial.Cafe.Commands\CQRSTutorial.Cafe.Commands.csproj" />
-    <ProjectReference Include="..\CQRSTutorial.Cafe.Common\CQRSTutorial.Cafe.Common.csproj" />
     <ProjectReference Include="..\CQRSTutorial.Cafe.Events\CQRSTutorial.Cafe.Events.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using CQRSTutorial.Cafe.Common;
 
 namespace CQRSTutorial.Cafe.Commands
 {
@@ -7,10 +8,5 @@ namespace CQRSTutorial.Cafe.Commands
         public Guid Id { get; set; }
         public int TableNumber { get; set; }
         public string Waiter { get; set; }
-    }
-
-    public interface ICommand
-    {
-        Guid Id { get; set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using CQRSTutorial.Cafe.Commands;
+﻿using CQRSTutorial.Cafe.Common;
+using System.Threading.Tasks;
 
 namespace CQRSTutorial.Cafe.Messaging
 {

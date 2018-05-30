@@ -88,6 +88,10 @@
       <Project>{5f8de1c8-3d8f-4ee5-b52d-20b3c730b615}</Project>
       <Name>CQRSTutorial.Cafe.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CQRSTutorial.Cafe.Common\CQRSTutorial.Cafe.Common.csproj">
+      <Project>{e8ec4fd3-279e-48ad-b54b-70ec4ea5cad4}</Project>
+      <Name>CQRSTutorial.Cafe.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CQRSTutorial.Cafe.Messaging\CQRSTutorial.Cafe.Messaging.csproj">
       <Project>{f6ee2f70-a43d-494e-b318-cb4a996b359f}</Project>
       <Name>CQRSTutorial.Cafe.Messaging</Name>
