@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consumers\Consumer.cs" />
+    <Compile Include="Consumers\OpenTabConsumer.cs" />
     <Compile Include="MessageBus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +93,10 @@
     <ProjectReference Include="..\CQRSTutorial.Cafe.Common\CQRSTutorial.Cafe.Common.csproj">
       <Project>{e8ec4fd3-279e-48ad-b54b-70ec4ea5cad4}</Project>
       <Name>CQRSTutorial.Cafe.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CQRSTutorial.Cafe.Domain\CQRSTutorial.Cafe.Domain.csproj">
+      <Project>{0c9dc8f0-3e5d-4938-add9-feaf080c5b51}</Project>
+      <Name>CQRSTutorial.Cafe.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\CQRSTutorial.Cafe.Messaging\CQRSTutorial.Cafe.Messaging.csproj">
       <Project>{f6ee2f70-a43d-494e-b318-cb4a996b359f}</Project>
