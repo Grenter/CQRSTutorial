@@ -24,7 +24,7 @@ namespace CQRSTutorial.Cafe.Web
             services.AddMvc();
             services.Add(new ServiceDescriptor(typeof(ICommandSender), typeof(CommandSender), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(ISendEndpointProvider), typeof(RabbitMqEndpointProvider), ServiceLifetime.Transient));
-            var rabbitMqMessageBus = new RabbitMessageBus(new RabbitMqConfiguration());
+            var rabbitMqMessageBus = new RabbitMqMessageBus(new RabbitMqConfiguration());
             services.Add(new ServiceDescriptor(typeof(IBusControl), rabbitMqMessageBus.Create()));
             services.Add(new ServiceDescriptor(typeof(IRabbitMqConfiguration), typeof(RabbitMqConfiguration), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(ISendEndpointConfiguration), typeof(RabbitEndpointConfiguration), ServiceLifetime.Transient));
