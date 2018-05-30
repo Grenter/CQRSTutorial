@@ -97,7 +97,7 @@ namespace CQRSTutorial.Cafe.Domain.Tests
 
         private IEnumerable DispatchCommand<TCommand>(TCommand c)
         {
-            var handler = _aggregate as ICommandHander<TCommand>;
+            var handler = _aggregate as ICommandHandler<TCommand>;
             if (handler == null)
                 throw new CommandHandlerNotDefiendException(string.Format(
                     "Aggregate {0} does not yet handle command {1}",
