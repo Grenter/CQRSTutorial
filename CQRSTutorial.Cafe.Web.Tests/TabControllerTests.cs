@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 using CQRSTutorial.Cafe.Messaging;
+using CQRSTutorial.Cafe.Web.Dtos;
 using ISendEndpointProvider = CQRSTutorial.Cafe.Messaging.ISendEndpointProvider;
 
 namespace CQRSTutorial.Cafe.Web.Tests

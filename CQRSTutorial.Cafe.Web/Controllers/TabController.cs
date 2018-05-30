@@ -3,6 +3,7 @@ using CQRSTutorial.Cafe.Messaging;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using CQRSTutorial.Cafe.Web.Dtos;
 
 namespace CQRSTutorial.Cafe.Web.Controllers
 {
@@ -30,11 +31,5 @@ namespace CQRSTutorial.Cafe.Web.Controllers
 
             await _commandSender.Send(openTabCommand);
         }
-    }
-
-    public class OpenTabDto
-    {
-        public string Waiter { get; set; }
-        public int TableNumber { get; set; }
     }
 }
