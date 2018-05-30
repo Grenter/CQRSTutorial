@@ -6,7 +6,7 @@ namespace CQRSTutorial.Cafe.CommandService
     public class TabCommandService
     {
         private IBusControl _busControl;
-        private IMessageBus _messageBus;
+        private readonly IMessageBus _messageBus;
 
         public TabCommandService(IMessageBus messageBus)
         {
