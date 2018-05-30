@@ -25,7 +25,7 @@ namespace CQRSTutorial.Cafe.Web.Controllers
             {
                 Id = Guid.NewGuid(),
                 Waiter = openTabDto.Waiter,
-                TableNumber = openTabDto.TableNumer
+                TableNumber = openTabDto.TableNumber
             };
 
             await _commandSender.Send(openTabCommand);
@@ -35,6 +35,6 @@ namespace CQRSTutorial.Cafe.Web.Controllers
     public class OpenTabDto
     {
         public string Waiter { get; set; }
-        public int TableNumer { get; set; }
+        public int TableNumber { get; set; }
     }
 }

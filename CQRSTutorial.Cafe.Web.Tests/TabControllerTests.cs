@@ -46,7 +46,7 @@ namespace CQRSTutorial.Cafe.Web.Tests
         {
             return c.Id != Guid.Empty
                    && c.Waiter == _openTabDto.Waiter
-                   && c.TableNumber == _openTabDto.TableNumer;
+                   && c.TableNumber == _openTabDto.TableNumber;
         }
 
         private async Task CreateTab()
@@ -60,7 +60,7 @@ namespace CQRSTutorial.Cafe.Web.Tests
             return new OpenTabDto
             {
                 Waiter = "David Grenter",
-                TableNumer = 12
+                TableNumber = 12
             };
         }
     }

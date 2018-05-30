@@ -1,8 +1,11 @@
 using CQRSTutorial.Cafe.Messaging;
+using MassTransit;
+using MassTransit.RabbitMqTransport.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ISendEndpointProvider = CQRSTutorial.Cafe.Messaging.ISendEndpointProvider;
 
 namespace CQRSTutorial.Cafe.Web
 {
@@ -21,6 +24,10 @@ namespace CQRSTutorial.Cafe.Web
             services.AddMvc();
             services.Add(new ServiceDescriptor(typeof(ICommandSender), typeof(CommandSender), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(ISendEndpointProvider), typeof(RabbitMqEndpointProvider), ServiceLifetime.Transient));
+            var rabbitMqMessageBus = new RabbitMessageBus(new RabbitMqConfiguration());
+            services.Add(new ServiceDescriptor(typeof(IBusControl), rabbitMqMessageBus.Create()));
+            services.Add(new ServiceDescriptor(typeof(IRabbitMqConfiguration), typeof(RabbitMqConfiguration), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(ISendEndpointConfiguration), typeof(RabbitEndpointConfiguration), ServiceLifetime.Transient));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
