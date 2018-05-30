@@ -1,4 +1,5 @@
 ﻿using System;
+using CQRSTutorial.Cafe.Messaging;
 using Topshelf;
 
 namespace CQRSTutorial.Cafe.CommandService
@@ -11,7 +12,7 @@ namespace CQRSTutorial.Cafe.CommandService
             {
                 x.Service<TabCommandService>(tabService =>
                 {
-                    tabService.ConstructUsing(ts => new TabCommandService(new MessageBus()));
+                    tabService.ConstructUsing(ts => new TabCommandService(new RabbitMessageBus(new RabbitMqConfiguration())));
                     tabService.WhenStarted(ts => ts.Start());
                     tabService.WhenStopped(ts => ts.Stop());
                 });
