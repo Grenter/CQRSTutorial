@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CQRSTutorial.Cafe.Commands\CQRSTutorial.Cafe.Commands.csproj" />
+    <ProjectReference Include="..\CQRSTutorial.Cafe.Events\CQRSTutorial.Cafe.Events.csproj" />
+  </ItemGroup>
+
+</Project>
