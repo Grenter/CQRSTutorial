@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using CQRSTutorial.Core;
 
 namespace CQRSTutorial.EventStore.Tests
 {
@@ -13,9 +14,10 @@ namespace CQRSTutorial.EventStore.Tests
         private Guid _aggregateId;
         protected EventStoreContext DbContext;
         private SqliteConnection _connection;
-        
-        [Test]
-        public void Save_event_to_store()
+        private EventRepository _storeRepository;
+
+        [SetUp]
+        public void SetUp()
         {
             _connection = new SqliteConnection("DataSource=:memory:");
             _aggregateId = new Guid("FC5B2701-E9B4-41E5-BD73-0C37185ADCBB");
@@ -29,20 +31,45 @@ namespace CQRSTutorial.EventStore.Tests
             };
            
            _connection.Open();
+
             var options = new DbContextOptionsBuilder<EventStoreContext>()
                 .UseSqlite(_connection)
                 .Options;
 
             DbContext = new EventStoreContext(options);
 
-            var storeRepository = new EventRepository(DbContext);
-            storeRepository.Add<TabOpened>(tabOpened);
+            _storeRepository = new EventRepository(DbContext);
+        }
+
+        [Test]
+        public void Save_event_to_store()
+        {
+            var tabOpened = GenerateTabOpened();
+            _storeRepository.Add(tabOpened);
 
             var events = DbContext.Events.Count(ev => ev.AggregateId == _aggregateId);
 
             Assert.That(events, Is.EqualTo(1));
+        }
 
+
+
+        [TearDown]
+        public void TearDown()
+        {
             _connection.Close();
+        }
+
+        private TabOpened GenerateTabOpened()
+        {
+            var tabOpened = new TabOpened
+            {
+                Id = Guid.NewGuid(),
+                AggregateId = _aggregateId,
+                TableNumber = 45,
+                WaiterName = "Sue"
+            };
+            return tabOpened;
         }
     }
 }

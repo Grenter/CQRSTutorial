@@ -16,7 +16,7 @@ namespace CQRSTutorial.EventStore
             _context.Database.EnsureCreated();
         }
 
-        public async void Add<TDomainEvent>(IDomainEvent domainEvent) where TDomainEvent : class, IDomainEvent
+        public async void Add(IDomainEvent domainEvent)
         {
             await _context.AddAsync(new Event
             {
