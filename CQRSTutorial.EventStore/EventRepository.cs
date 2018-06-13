@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CQRSTutorial.Core.Events;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,13 @@ namespace CQRSTutorial.EventStore
             });
 
             await _context.SaveChangesAsync();
+        }
+
+        public IList<Event> GetAllEvents(Guid aggregateId)
+        {
+            var events = _context.Events.Where(ev => ev.AggregateId == aggregateId);
+
+            return events.ToList();
         }
     }
 }

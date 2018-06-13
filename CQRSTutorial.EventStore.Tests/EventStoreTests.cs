@@ -52,7 +52,15 @@ namespace CQRSTutorial.EventStore.Tests
             Assert.That(events, Is.EqualTo(1));
         }
 
+        [Test]
+        public void Get_all_events_for_aggregate_id()
+        {
+            _storeRepository.Add(GenerateTabOpened());
 
+            var domainEvents = _storeRepository.GetAllEvents(_aggregateId);
+
+            Assert.That(domainEvents.Count(), Is.EqualTo(1));
+        }
 
         [TearDown]
         public void TearDown()
