@@ -22,7 +22,12 @@ namespace CQRSTutorial.Core
             };
 
             Events.Add(tabOpened);
+            Apply(tabOpened);
+        }
 
+        public TabAggregate(TabOpened tabOpened)
+        {
+            Events.Add(tabOpened);
             Apply(tabOpened);
         }
 

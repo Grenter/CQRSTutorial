@@ -19,7 +19,14 @@ namespace CQRSTutorial.Core.Tests
         [Test]
         public void When_new_tab_aggregate_tab_opened_event_raised()
         {
-            var tab = new TabAggregate(_tabId, 45, "Gary");
+            var tab = new TabAggregate(new TabOpened
+            {
+                Id = Guid.NewGuid(),
+                AggregateId = _tabId,
+                Balance = 0.0m,
+                WaiterName = "Gary",
+                TableNumber = 45
+            });
 
             var tabEvent = tab.GetDomainEvents().Last() as TabOpened;
 
