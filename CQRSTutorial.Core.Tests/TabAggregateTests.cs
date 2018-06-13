@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using CQRSTutorial.Core.CommandHandlers;
-using CQRSTutorial.Core.Commands;
-using CQRSTutorial.Core.Events;
+﻿using CQRSTutorial.Events;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace CQRSTutorial.Core.Tests
 {
@@ -11,7 +9,6 @@ namespace CQRSTutorial.Core.Tests
     public class TabAggregateTests
     {
         private Guid _tabId;
-        private TabAggregate _tabAggregate;
 
         [SetUp]
         public void SetUp()

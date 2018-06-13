@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CQRSTutorial.Core.Events;
+using CQRSTutorial.Events;
 
 namespace CQRSTutorial.EventStore
 {

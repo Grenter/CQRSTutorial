@@ -1,4 +1,4 @@
-﻿using CQRSTutorial.Core.Events;
+﻿using CQRSTutorial.Events;
 
 namespace CQRSTutorial.Core
 {

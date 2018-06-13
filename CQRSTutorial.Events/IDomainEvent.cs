@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CQRSTutorial.Core.Events
+namespace CQRSTutorial.Events
 {
     public interface IDomainEvent
     {

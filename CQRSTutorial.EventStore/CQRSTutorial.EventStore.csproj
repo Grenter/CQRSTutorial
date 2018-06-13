@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CQRSTutorial.Core\CQRSTutorial.Core.csproj" />
+    <ProjectReference Include="..\CQRSTutorial.Events\CQRSTutorial.Events.csproj" />
   </ItemGroup>
 
 </Project>

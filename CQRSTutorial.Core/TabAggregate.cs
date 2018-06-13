@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CQRSTutorial.Core.Events;
+using CQRSTutorial.Events;
 
 namespace CQRSTutorial.Core
 {
@@ -21,6 +21,8 @@ namespace CQRSTutorial.Core
                 Balance = 0.0m
             };
 
+            Events.Add(tabOpened);
+
             Apply(tabOpened);
         }
 
@@ -33,8 +35,6 @@ namespace CQRSTutorial.Core
         {
             _isOpen = true;
             _tabBalance = domainEvent.Balance;
-
-            Events.Add(domainEvent);
         }
     }
 }

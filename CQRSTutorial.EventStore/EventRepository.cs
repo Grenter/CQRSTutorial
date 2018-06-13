@@ -1,8 +1,8 @@
-﻿using CQRSTutorial.Core.Events;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CQRSTutorial.Events;
 
 namespace CQRSTutorial.EventStore
 {

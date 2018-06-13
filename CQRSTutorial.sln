@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.EventStore", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.EventStore.Tests", "CQRSTutorial.EventStore.Tests\CQRSTutorial.EventStore.Tests.csproj", "{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Events", "CQRSTutorial.Events\CQRSTutorial.Events.csproj", "{2BF2CBFE-05C0-4F60-B427-F5375593B663}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BF2CBFE-05C0-4F60-B427-F5375593B663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF2CBFE-05C0-4F60-B427-F5375593B663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF2CBFE-05C0-4F60-B427-F5375593B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF2CBFE-05C0-4F60-B427-F5375593B663}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
