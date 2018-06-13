@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using CQRSTutorial.Core;
 
 namespace CQRSTutorial.EventStore.Tests
 {
@@ -22,14 +21,6 @@ namespace CQRSTutorial.EventStore.Tests
             _connection = new SqliteConnection("DataSource=:memory:");
             _aggregateId = new Guid("FC5B2701-E9B4-41E5-BD73-0C37185ADCBB");
             
-            var tabOpened = new TabOpened
-            {
-                Id = Guid.NewGuid(),
-                AggregateId = _aggregateId,
-                TableNumber = 45,
-                WaiterName = "Sue"
-            };
-           
            _connection.Open();
 
             var options = new DbContextOptionsBuilder<EventStoreContext>()
