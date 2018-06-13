@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Core.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Core", "CQRSTutorial.Core\CQRSTutorial.Core.csproj", "{95C7F004-8B3B-49D7-9D52-234732C5A66D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.EventStore", "CQRSTutorial.EventStore\CQRSTutorial.EventStore.csproj", "{8D9538C7-7E44-4F6B-B773-C6ED0068C31C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.EventStore.Tests", "CQRSTutorial.EventStore.Tests\CQRSTutorial.EventStore.Tests.csproj", "{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{95C7F004-8B3B-49D7-9D52-234732C5A66D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95C7F004-8B3B-49D7-9D52-234732C5A66D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95C7F004-8B3B-49D7-9D52-234732C5A66D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D9538C7-7E44-4F6B-B773-C6ED0068C31C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D9538C7-7E44-4F6B-B773-C6ED0068C31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D9538C7-7E44-4F6B-B773-C6ED0068C31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D9538C7-7E44-4F6B-B773-C6ED0068C31C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
