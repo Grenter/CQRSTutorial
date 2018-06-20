@@ -45,12 +45,5 @@ namespace CQRSTutorial.EventStore
 
             return (IDomainEvent) JsonConvert.DeserializeObject(@event.Data, type);
         }
-
-        public IList<Event> GetAllEvents(Guid aggregateId)
-        {
-            var events = _context.Events.Where(ev => ev.AggregateId == aggregateId);
-
-            return events.ToList();
-        }
     }
 }

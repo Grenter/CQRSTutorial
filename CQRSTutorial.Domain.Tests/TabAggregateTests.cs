@@ -1,10 +1,9 @@
-﻿using CQRSTutorial.Domain;
+﻿using System;
+using System.Linq;
 using CQRSTutorial.Events;
 using NUnit.Framework;
-using System;
-using System.Linq;
 
-namespace CQRSTutorial.Core.Tests
+namespace CQRSTutorial.Domain.Tests
 {
     [TestFixture]
     public class TabAggregateTests
