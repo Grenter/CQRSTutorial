@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CQRSTutorial.Events;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CQRSTutorial.Domain.Tests
@@ -23,11 +24,10 @@ namespace CQRSTutorial.Domain.Tests
 
             var tabEvent = tab.GetDomainEvents().Last() as TabOpened;
 
-            Assert.That(tabEvent, Is.TypeOf<TabOpened>());
-            Assert.That(tabEvent.AggregateId, Is.EqualTo(_tabId));
-            Assert.That(tabEvent.TableNumber, Is.EqualTo(45));
-            Assert.That(tabEvent.WaiterName, Is.EqualTo("Gary"));
-            Assert.That(tabEvent.Balance, Is.EqualTo(0.0m));
+            tabEvent.AggregateId.Should().Be(_tabId);
+            tabEvent.TableNumber.Should().Be(45);
+            tabEvent.WaiterName.Should().Be("Gary");
+            tabEvent.Balance.Should().Be(0.0m);
         }
     }
 }

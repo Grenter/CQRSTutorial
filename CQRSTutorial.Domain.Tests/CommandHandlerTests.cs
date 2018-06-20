@@ -1,14 +1,15 @@
 ﻿using CQRSTutorial.Commands;
+using CQRSTutorial.Core;
+using CQRSTutorial.Core.Exceptions;
 using CQRSTutorial.Domain.CommandHandlers;
+using CQRSTutorial.Events;
 using CQRSTutorial.EventStore;
 using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using CQRSTutorial.Core;
-using CQRSTutorial.Core.Exceptions;
-using CQRSTutorial.Events;
-using NSubstitute.Core;
+using FluentAssertions;
+using NSubstitute.ExceptionExtensions;
 
 namespace CQRSTutorial.Domain.Tests
 {
@@ -37,7 +38,7 @@ namespace CQRSTutorial.Domain.Tests
 
             var raisedEvent = commandHandler.Handle(openTab);
 
-            Assert.That(raisedEvent, Is.TypeOf<TabOpened>());
+            raisedEvent.Should().BeOfType<TabOpened>();
         }
 
         [Test]
@@ -67,9 +68,9 @@ namespace CQRSTutorial.Domain.Tests
                 }
             };
 
-            var raisedEvent = commandHandler.Handle(drinksOrder) as DrinksOrdered;
+            var raisedEvent = commandHandler.Handle(drinksOrder);
 
-            Assert.That(raisedEvent.OrderItems.Count, Is.EqualTo(1));
+            raisedEvent.Should().BeOfType<DrinksOrdered>();
         }
 
         [Test]
@@ -91,7 +92,9 @@ namespace CQRSTutorial.Domain.Tests
                 }
             };
 
-            Assert.Throws<NullAggregateException>(() => commandHandler.Handle(drinksOrder));
+            Action handle = () => commandHandler.Handle(drinksOrder);
+
+            handle.Should().Throw<NullAggregateException>();
         }
     }
 }
