@@ -65,7 +65,7 @@ namespace CQRSTutorial.Domain.Tests
                 }
             };
 
-            var raisedEvent = commandHandler.Handle(drinksOrder) as OrderedDrinks;
+            var raisedEvent = commandHandler.Handle(drinksOrder) as DrinksOrdered;
 
             Assert.That(raisedEvent.OrderItems.Count, Is.EqualTo(1));
         }

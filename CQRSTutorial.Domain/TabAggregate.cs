@@ -46,7 +46,7 @@ namespace CQRSTutorial.Domain
             _tabBalance = domainEvent.Balance;
         }
 
-        public void When(OrderedDrinks domainEvent)
+        public void When(DrinksOrdered domainEvent)
         {
             _tabBalance = domainEvent.OrderItems.Sum(oi => oi.Price);
         }

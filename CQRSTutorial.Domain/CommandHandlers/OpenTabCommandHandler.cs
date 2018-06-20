@@ -45,7 +45,7 @@ namespace CQRSTutorial.Domain.CommandHandlers
                 tab.Apply(domainEvent);
             }
 
-            tab.Apply(new OrderedDrinks
+            tab.Apply(new DrinksOrdered
             {
                 AggregateId = command.AggregateId,
                 OrderItems = command.OrderItems
