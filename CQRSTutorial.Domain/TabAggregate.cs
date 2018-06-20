@@ -7,7 +7,8 @@ using System.Linq;
 namespace CQRSTutorial.Domain
 {
     public class TabAggregate : Aggregate,
-        IApplyEvent<TabOpened>
+        IApplyEvent<TabOpened>,
+        IApplyEvent<DrinksOrdered>
     {
         private bool _isOpen;
         private decimal _tabBalance;

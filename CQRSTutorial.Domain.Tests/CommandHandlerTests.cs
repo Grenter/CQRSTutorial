@@ -51,8 +51,8 @@ namespace CQRSTutorial.Domain.Tests
                 }
             });
 
-            var commandHandler = new DrinksOrderCommandHandler(_eventRepository);
-            var drinksOrder = new DrinksOrder
+            var commandHandler = new OrderDrinksCommandHandler(_eventRepository);
+            var drinksOrder = new OrderDrinks
             {
                 AggregateId = _aggregateId,
                 OrderItems = new List<OrderItem>
