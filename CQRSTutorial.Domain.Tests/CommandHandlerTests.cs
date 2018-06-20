@@ -29,5 +29,11 @@ namespace CQRSTutorial.Domain.Tests
 
             Assert.That(raisedEvent.AggregateId, Is.EqualTo(_aggregateId));
         }
+
+        [Test]
+        public void When_order_drinks_command_raised()
+        {
+            
+        }
     }
 }

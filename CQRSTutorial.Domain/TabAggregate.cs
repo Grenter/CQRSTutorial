@@ -28,11 +28,6 @@ namespace CQRSTutorial.Domain
             Apply(tabOpened);
         }
 
-        public TabAggregate(TabOpened tabOpened)
-        {
-            Apply(tabOpened);
-        }
-
         public override IEnumerable<IDomainEvent> GetDomainEvents()
         {
             return Events;

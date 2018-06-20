@@ -3,6 +3,7 @@ using CQRSTutorial.Core;
 using CQRSTutorial.Events;
 using CQRSTutorial.EventStore;
 using System;
+using System.Linq;
 
 namespace CQRSTutorial.Domain.CommandHandlers
 {
@@ -17,20 +18,12 @@ namespace CQRSTutorial.Domain.CommandHandlers
 
         public IDomainEvent Handle(OpenTab command)
         {
-            var tabOpened = new TabOpened
-            {
-                Id = Guid.NewGuid(),
-                AggregateId = command.AggregateId,
-                Balance = 0.0m,
-                TableNumber = command.TableNumber,
-                WaiterName = command.WaiterName
-            };
+            var tab = new TabAggregate(command.AggregateId, command.TableNumber, command.WaiterName);
+            var raisedEvent = tab.GetDomainEvents().Last();
 
-            var tab = new TabAggregate(tabOpened);
+            _repository.Add(raisedEvent); // Temp until Event Listeners and bus added. 
 
-            _repository.Add(tabOpened);
-
-            return tabOpened;
+            return raisedEvent;
         }
     }
 }
