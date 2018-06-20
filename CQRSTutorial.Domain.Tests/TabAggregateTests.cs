@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using CQRSTutorial.Commands;
+using CQRSTutorial.Core;
 using CQRSTutorial.Events;
 using FluentAssertions;
 using NUnit.Framework;
@@ -28,6 +31,39 @@ namespace CQRSTutorial.Domain.Tests
             tabEvent.TableNumber.Should().Be(45);
             tabEvent.WaiterName.Should().Be("Gary");
             tabEvent.Balance.Should().Be(0.0m);
+        }
+
+        [Test]
+        public void When_drinks_added()
+        {
+            var tab = TabAggregate.BuildFromHistory(new List<IDomainEvent>
+            {
+                new TabOpened
+                {
+                    AggregateId = _tabId,
+                    WaiterName = "Gary",
+                    TableNumber = 45,
+                    Balance = 0.0m
+                }
+            });
+
+            tab.AddDrinks(new OrderDrinks
+            {
+                Id = Guid.NewGuid(),
+                AggregateId = _tabId,
+                OrderItems = new List<OrderItem>
+                {
+                    new OrderItem
+                    {
+                        Name = "Coke (pint)",
+                        Price = 2.0m
+                    }
+                }
+            });
+
+            var tabEvent = tab.GetDomainEvents().Last() as DrinksOrdered;
+
+            tabEvent.OrderItems.Count.Should().Be(1);
         }
     }
 }
