@@ -1,7 +1,6 @@
 ﻿using CQRSTutorial.Commands;
 using CQRSTutorial.Core;
 using CQRSTutorial.EventStore;
-using System;
 using System.Linq;
 
 namespace CQRSTutorial.Domain.CommandHandlers

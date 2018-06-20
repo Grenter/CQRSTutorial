@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CQRSTutorial.Commands;
 using CQRSTutorial.Core;
 using CQRSTutorial.Events;
@@ -8,6 +9,11 @@ namespace CQRSTutorial.Domain.CommandHandlers
 {
     public class OrderDrinksCommandHandler : ICommandHandler<OrderDrinks>
     {
+        // Notes for discussion:
+        // I changed handle from void to return the event.
+        // When the handler uncovers an error based on logic (tab not open) should it raise an error event? rather than an exception
+        // 
+
         private readonly IEventRepository _repository;
 
         public OrderDrinksCommandHandler(IEventRepository eventRepository)
@@ -18,17 +24,26 @@ namespace CQRSTutorial.Domain.CommandHandlers
         public IDomainEvent Handle(OrderDrinks command)
         {
             var events = _repository.GetEventsFor(command.AggregateId);
-            var tab = new TabAggregate();
-            foreach (var domainEvent in events)
-            {
-                tab.Apply(domainEvent);
-            }
+            var tab = TabAggregate.BuildFromHistory(events);
 
-            tab.Apply(new DrinksOrdered
+            if (tab.IsOpen)
             {
-                AggregateId = command.AggregateId,
-                OrderItems = command.OrderItems
-            });
+                tab.Apply(new DrinksOrdered
+                {
+                    Id = Guid.NewGuid(),
+                    AggregateId = command.AggregateId,
+                    OrderItems = command.OrderItems
+                });
+            }
+            else
+            {
+                tab.Apply(new TabError
+                {
+                    Id = Guid.NewGuid(),
+                    AggregateId = command.AggregateId,
+                    Reason = "No tab open."
+                });
+            }
 
             var raisedEvent = tab.GetDomainEvents().Last();
 

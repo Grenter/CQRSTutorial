@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using CQRSTutorial.Core;
 using CQRSTutorial.Events;
+using NSubstitute.Core;
 
 namespace CQRSTutorial.Domain.Tests
 {
@@ -35,7 +36,7 @@ namespace CQRSTutorial.Domain.Tests
 
             var raisedEvent = commandHandler.Handle(openTab);
 
-            Assert.That(raisedEvent.AggregateId, Is.EqualTo(_aggregateId));
+            Assert.That(raisedEvent, Is.TypeOf<TabOpened>());
         }
 
         [Test]
@@ -68,6 +69,30 @@ namespace CQRSTutorial.Domain.Tests
             var raisedEvent = commandHandler.Handle(drinksOrder) as DrinksOrdered;
 
             Assert.That(raisedEvent.OrderItems.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void When_order_drinks_command_raised_with_no_open_tab()
+        {
+            _eventRepository.GetEventsFor(_aggregateId).Returns(new List<IDomainEvent>());
+
+            var commandHandler = new OrderDrinksCommandHandler(_eventRepository);
+            var drinksOrder = new OrderDrinks
+            {
+                AggregateId = _aggregateId,
+                OrderItems = new List<OrderItem>
+                {
+                    new OrderItem
+                    {
+                        Name = "Coke (pint)",
+                        Price = 2.0m
+                    }
+                }
+            };
+
+            var raisedEvent = commandHandler.Handle(drinksOrder) as TabError;
+
+            Assert.That(raisedEvent.Reason, Is.EqualTo("No tab open."));
         }
     }
 }
