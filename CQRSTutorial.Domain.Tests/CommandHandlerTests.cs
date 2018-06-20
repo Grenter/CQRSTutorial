@@ -90,9 +90,7 @@ namespace CQRSTutorial.Domain.Tests
                 }
             };
 
-            var raisedEvent = commandHandler.Handle(drinksOrder) as TabError;
-
-            Assert.That(raisedEvent.Reason, Is.EqualTo("No tab open."));
+            Assert.Throws<NullAggregateException>(() => commandHandler.Handle(drinksOrder));
         }
     }
 }

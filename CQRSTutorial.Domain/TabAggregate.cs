@@ -3,6 +3,7 @@ using CQRSTutorial.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CQRSTutorial.Commands;
 
 namespace CQRSTutorial.Domain
 {
@@ -50,27 +51,30 @@ namespace CQRSTutorial.Domain
 
         public void When(DrinksOrdered domainEvent)
         {
-            if (_isOpen)
-            {
-                _tabBalance = domainEvent.OrderItems.Sum(oi => oi.Price);
-            }
-            else
-            {
-                Apply(new TabError
-                {
-                    Id = Guid.NewGuid(),
-                    AggregateId = domainEvent.AggregateId,
-                    Reason = "No tab open."
-                });
-            }
+            _tabBalance = domainEvent.OrderItems.Sum(oi => oi.Price);
         }
 
         public void When(TabError domainEvent)
         {
         }
 
+        public void AddDrinks(OrderDrinks command)
+        {
+            if (_isOpen)
+            {
+                Apply(new DrinksOrdered
+                {
+                    Id = Guid.NewGuid(),
+                    AggregateId = command.AggregateId,
+                    OrderItems = command.OrderItems
+                });
+            }
+        }
+
         public static TabAggregate BuildFromHistory(IEnumerable<IDomainEvent> domainEvents)
         {
+            if (!domainEvents.Any()) return null;
+
             var tab = new TabAggregate();
 
             foreach (var domainEvent in domainEvents)
@@ -79,6 +83,7 @@ namespace CQRSTutorial.Domain
             }
 
             return tab;
+
         }
     }
 }
