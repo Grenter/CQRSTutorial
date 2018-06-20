@@ -1,12 +1,11 @@
-﻿using System;
-using CQRSTutorial.Commands;
+﻿using CQRSTutorial.Commands;
 using CQRSTutorial.Core;
 using CQRSTutorial.Events;
 using CQRSTutorial.EventStore;
+using System;
 
 namespace CQRSTutorial.Domain.CommandHandlers
 {
-
     public class OpenTabCommandHandler : ICommandHandler<OpenTab>
     {
         private readonly IEventRepository _repository;
@@ -16,7 +15,7 @@ namespace CQRSTutorial.Domain.CommandHandlers
             _repository = repository;
         }
 
-        public void Handle(OpenTab command)
+        public IDomainEvent Handle(OpenTab command)
         {
             var tabOpened = new TabOpened
             {
@@ -30,6 +29,8 @@ namespace CQRSTutorial.Domain.CommandHandlers
             var tab = new TabAggregate(tabOpened);
 
             _repository.Add(tabOpened);
+
+            return tabOpened;
         }
     }
 }

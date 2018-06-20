@@ -1,11 +1,10 @@
-﻿using CQRSTutorial.Events;
+﻿using CQRSTutorial.Core;
+using CQRSTutorial.Events;
 using System;
 using System.Collections.Generic;
-using CQRSTutorial.Core;
 
 namespace CQRSTutorial.Domain
 {
-
     public class TabAggregate : Aggregate,
         IApplyEvent<TabOpened>
     {

@@ -1,5 +1,5 @@
-﻿using System;
-using CQRSTutorial.Core;
+﻿using CQRSTutorial.Core;
+using System;
 
 namespace CQRSTutorial.Commands
 {
