@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CQRSTutorial.Core;
+using System;
 using System.Collections.Generic;
-using CQRSTutorial.Events;
 
 namespace CQRSTutorial.EventStore
 {
@@ -8,6 +8,6 @@ namespace CQRSTutorial.EventStore
     {
         void Add(IDomainEvent domainEvent);
 
-        IList<Event> GetAllEvents(Guid aggregateId);
+        IEnumerable<IDomainEvent> GetEventsFor(Guid aggregateId);
     }
 }

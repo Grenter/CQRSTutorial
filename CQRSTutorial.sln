@@ -7,11 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Core.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Core", "CQRSTutorial.Core\CQRSTutorial.Core.csproj", "{95C7F004-8B3B-49D7-9D52-234732C5A66D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.EventStore", "CQRSTutorial.EventStore\CQRSTutorial.EventStore.csproj", "{8D9538C7-7E44-4F6B-B773-C6ED0068C31C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.EventStore", "CQRSTutorial.EventStore\CQRSTutorial.EventStore.csproj", "{8D9538C7-7E44-4F6B-B773-C6ED0068C31C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.EventStore.Tests", "CQRSTutorial.EventStore.Tests\CQRSTutorial.EventStore.Tests.csproj", "{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.EventStore.Tests", "CQRSTutorial.EventStore.Tests\CQRSTutorial.EventStore.Tests.csproj", "{EFA9E9C0-3AD0-4491-AB64-FC912F9BAB76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Events", "CQRSTutorial.Events\CQRSTutorial.Events.csproj", "{2BF2CBFE-05C0-4F60-B427-F5375593B663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Events", "CQRSTutorial.Events\CQRSTutorial.Events.csproj", "{2BF2CBFE-05C0-4F60-B427-F5375593B663}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Domain", "CQRSTutorial.Domain\CQRSTutorial.Domain.csproj", "{476F8233-E0D7-409A-9E59-CF48A577FBC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Commands", "CQRSTutorial.Commands\CQRSTutorial.Commands.csproj", "{866618C3-7EB3-42C1-8B83-BDE4530FE63C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{2BF2CBFE-05C0-4F60-B427-F5375593B663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BF2CBFE-05C0-4F60-B427-F5375593B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BF2CBFE-05C0-4F60-B427-F5375593B663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{476F8233-E0D7-409A-9E59-CF48A577FBC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{476F8233-E0D7-409A-9E59-CF48A577FBC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{476F8233-E0D7-409A-9E59-CF48A577FBC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{476F8233-E0D7-409A-9E59-CF48A577FBC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{866618C3-7EB3-42C1-8B83-BDE4530FE63C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{866618C3-7EB3-42C1-8B83-BDE4530FE63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{866618C3-7EB3-42C1-8B83-BDE4530FE63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{866618C3-7EB3-42C1-8B83-BDE4530FE63C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

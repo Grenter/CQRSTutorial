@@ -1,10 +1,8 @@
-﻿using CQRSTutorial.Events;
-
-namespace CQRSTutorial.Core
+﻿namespace CQRSTutorial.Core
 {
     public interface IApplyEvent<in TEvent>
         where TEvent : IDomainEvent
     {
-        void Apply(TEvent domainEvent);
+        void When(TEvent domainEvent);
     }
 }

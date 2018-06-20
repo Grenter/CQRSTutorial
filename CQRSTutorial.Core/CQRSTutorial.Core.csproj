@@ -4,9 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CQRSTutorial.EventStore\CQRSTutorial.EventStore.csproj" />
-    <ProjectReference Include="..\CQRSTutorial.Events\CQRSTutorial.Events.csproj" />
-  </ItemGroup>
-
 </Project>

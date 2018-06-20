@@ -1,4 +1,5 @@
-﻿using CQRSTutorial.Events;
+﻿using CQRSTutorial.Domain;
+using CQRSTutorial.Events;
 using NUnit.Framework;
 using System;
 using System.Linq;

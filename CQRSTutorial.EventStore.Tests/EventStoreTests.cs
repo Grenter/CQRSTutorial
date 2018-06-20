@@ -1,9 +1,9 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using CQRSTutorial.Events;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using CQRSTutorial.Events;
 
 namespace CQRSTutorial.EventStore.Tests
 {
@@ -44,13 +44,13 @@ namespace CQRSTutorial.EventStore.Tests
         }
 
         [Test]
-        public void Get_all_events_for_aggregate_id()
+        public void Get_events_for_aggregate_id_returns_events()
         {
             _storeRepository.Add(GenerateTabOpened());
 
-            var domainEvents = _storeRepository.GetAllEvents(_aggregateId);
+            var events = _storeRepository.GetEventsFor(_aggregateId);
 
-            Assert.That(domainEvents.Count(), Is.EqualTo(1));
+            Assert.That(events.Count(), Is.EqualTo(1));
         }
 
         [TearDown]
