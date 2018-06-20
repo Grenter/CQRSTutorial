@@ -1,6 +1,6 @@
-﻿using System;
-using CQRSTutorial.Commands;
+﻿using CQRSTutorial.Commands;
 using CQRSTutorial.Core;
+using CQRSTutorial.Core.Exceptions;
 using CQRSTutorial.EventStore;
 using System.Linq;
 
@@ -28,9 +28,5 @@ namespace CQRSTutorial.Domain.CommandHandlers
             _repository.Add(raisedEvent); // Temp until Event Listeners and bus added. 
             return raisedEvent;
         }
-    }
-
-    public class NullAggregateException : Exception
-    {
     }
 }

@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using CQRSTutorial.Core;
+using CQRSTutorial.Core.Exceptions;
 using CQRSTutorial.Events;
 using NSubstitute.Core;
 
