@@ -11,7 +11,7 @@ namespace CQRSTutorial.Domain
         IApplyEvent<DrinksOrdered>,
         IApplyEvent<TabError>
     {
-        public bool IsOpen { get; private set; }
+        private bool _isOpen;
         private decimal _tabBalance;
 
         private TabAggregate()
@@ -44,13 +44,25 @@ namespace CQRSTutorial.Domain
 
         public void When(TabOpened domainEvent)
         {
-            IsOpen = true;
+            _isOpen = true;
             _tabBalance = domainEvent.Balance;
         }
 
         public void When(DrinksOrdered domainEvent)
         {
-            _tabBalance = domainEvent.OrderItems.Sum(oi => oi.Price);
+            if (_isOpen)
+            {
+                _tabBalance = domainEvent.OrderItems.Sum(oi => oi.Price);
+            }
+            else
+            {
+                Apply(new TabError
+                {
+                    Id = Guid.NewGuid(),
+                    AggregateId = domainEvent.AggregateId,
+                    Reason = "No tab open."
+                });
+            }
         }
 
         public void When(TabError domainEvent)

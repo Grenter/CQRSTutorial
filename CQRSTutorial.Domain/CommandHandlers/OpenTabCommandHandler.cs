@@ -20,7 +20,6 @@ namespace CQRSTutorial.Domain.CommandHandlers
             var raisedEvent = tab.GetDomainEvents().Last();
 
             _repository.Add(raisedEvent); // Temp until Event Listeners and bus added. 
-
             return raisedEvent;
         }
     }

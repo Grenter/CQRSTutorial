@@ -26,24 +26,12 @@ namespace CQRSTutorial.Domain.CommandHandlers
             var events = _repository.GetEventsFor(command.AggregateId);
             var tab = TabAggregate.BuildFromHistory(events);
 
-            if (tab.IsOpen)
+            tab.Apply(new DrinksOrdered
             {
-                tab.Apply(new DrinksOrdered
-                {
-                    Id = Guid.NewGuid(),
-                    AggregateId = command.AggregateId,
-                    OrderItems = command.OrderItems
-                });
-            }
-            else
-            {
-                tab.Apply(new TabError
-                {
-                    Id = Guid.NewGuid(),
-                    AggregateId = command.AggregateId,
-                    Reason = "No tab open."
-                });
-            }
+                Id = Guid.NewGuid(),
+                AggregateId = command.AggregateId,
+                OrderItems = command.OrderItems
+            });
 
             var raisedEvent = tab.GetDomainEvents().Last();
 
