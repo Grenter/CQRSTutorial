@@ -26,4 +26,36 @@ namespace CQRSTutorial.Domain.CommandHandlers
             return raisedEvent;
         }
     }
+
+    public class DrinksOrderCommandHandler : ICommandHandler<DrinksOrder>
+    {
+        private readonly IEventRepository _repository;
+
+        public DrinksOrderCommandHandler(IEventRepository eventRepository)
+        {
+            _repository = eventRepository;
+        }
+
+        public IDomainEvent Handle(DrinksOrder command)
+        {
+            var events = _repository.GetEventsFor(command.AggregateId);
+            var tab = new TabAggregate();
+            foreach (var domainEvent in events)
+            {
+                tab.Apply(domainEvent);
+            }
+
+            tab.Apply(new OrderedDrinks
+            {
+                AggregateId = command.AggregateId,
+                OrderItems = command.OrderItems
+            });
+
+            var raisedEvent = tab.GetDomainEvents().Last();
+
+            _repository.Add(raisedEvent); // Temp until Event Listeners and bus added. 
+
+            return raisedEvent;
+        }
+    }
 }

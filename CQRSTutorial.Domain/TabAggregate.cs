@@ -2,6 +2,7 @@
 using CQRSTutorial.Events;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CQRSTutorial.Domain
 {
@@ -43,6 +44,11 @@ namespace CQRSTutorial.Domain
         {
             _isOpen = true;
             _tabBalance = domainEvent.Balance;
+        }
+
+        public void When(OrderedDrinks domainEvent)
+        {
+            _tabBalance = domainEvent.OrderItems.Sum(oi => oi.Price);
         }
     }
 }
