@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Events", "CQRS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Domain", "CQRSTutorial.Domain\CQRSTutorial.Domain.csproj", "{476F8233-E0D7-409A-9E59-CF48A577FBC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Commands", "CQRSTutorial.Commands\CQRSTutorial.Commands.csproj", "{866618C3-7EB3-42C1-8B83-BDE4530FE63C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Commands", "CQRSTutorial.Commands\CQRSTutorial.Commands.csproj", "{866618C3-7EB3-42C1-8B83-BDE4530FE63C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSTutorial.Domain.Tests", "CQRSTutorial.Domain.Tests\CQRSTutorial.Domain.Tests.csproj", "{BF9045B2-781D-4B3C-8288-781A8E494276}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Messaging", "CQRSTutorial.Messaging\CQRSTutorial.Messaging.csproj", "{7F05AE32-90B6-4A23-BA15-F8E48EED1BEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSTutorial.Messaging.Tests", "CQRSTutorial.Messaging.Tests\CQRSTutorial.Messaging.Tests.csproj", "{DE16AB38-D4CB-4FF7-A0A1-E765215E1532}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{BF9045B2-781D-4B3C-8288-781A8E494276}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF9045B2-781D-4B3C-8288-781A8E494276}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF9045B2-781D-4B3C-8288-781A8E494276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F05AE32-90B6-4A23-BA15-F8E48EED1BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F05AE32-90B6-4A23-BA15-F8E48EED1BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F05AE32-90B6-4A23-BA15-F8E48EED1BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F05AE32-90B6-4A23-BA15-F8E48EED1BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE16AB38-D4CB-4FF7-A0A1-E765215E1532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE16AB38-D4CB-4FF7-A0A1-E765215E1532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE16AB38-D4CB-4FF7-A0A1-E765215E1532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE16AB38-D4CB-4FF7-A0A1-E765215E1532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
