@@ -18,7 +18,7 @@ namespace CQRSTutorial.Domain.CommandHandlers
         public IDomainEvent Handle(OrderDrinks command)
         {
             var events = _repository.GetEventsFor(command.AggregateId);
-            var tab = TabAggregate.BuildFromHistory(events);
+            var tab = TabAggregate.BuildFromHistory(events.ToList());
 
             if (tab is null) throw new NullAggregateException();
 

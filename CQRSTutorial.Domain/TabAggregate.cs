@@ -14,6 +14,7 @@ namespace CQRSTutorial.Domain
     {
         private bool _isOpen;
         private decimal _tabBalance;
+        private readonly List<OrderItem> _drinks = new List<OrderItem>();
 
         private TabAggregate()
         { }
@@ -37,24 +38,25 @@ namespace CQRSTutorial.Domain
             return Events;
         }
 
-        public override void Apply(IDomainEvent domainEvent)
+        public sealed override void Apply(IDomainEvent domainEvent)
         {
             Events.Add(domainEvent);
             When((dynamic)domainEvent);
         }
 
-        public void When(TabOpened domainEvent)
+        public void When(TabOpened @event)
         {
             _isOpen = true;
-            _tabBalance = domainEvent.Balance;
+            _tabBalance = @event.Balance;
         }
 
-        public void When(DrinksOrdered domainEvent)
+        public void When(DrinksOrdered @event)
         {
-            _tabBalance = domainEvent.OrderItems.Sum(oi => oi.Price);
+            _tabBalance = @event.OrderItems.Sum(oi => oi.Price);
+            _drinks.AddRange(@event.OrderItems);
         }
 
-        public void When(TabError domainEvent)
+        public void When(TabError @event)
         {
         }
 
@@ -71,7 +73,7 @@ namespace CQRSTutorial.Domain
             }
         }
 
-        public static TabAggregate BuildFromHistory(IEnumerable<IDomainEvent> domainEvents)
+        public static TabAggregate BuildFromHistory(IList<IDomainEvent> domainEvents)
         {
             if (!domainEvents.Any()) return null;
 
@@ -83,7 +85,6 @@ namespace CQRSTutorial.Domain
             }
 
             return tab;
-
         }
     }
 }
