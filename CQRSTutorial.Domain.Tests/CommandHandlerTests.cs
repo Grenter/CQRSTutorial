@@ -4,12 +4,12 @@ using CQRSTutorial.Core.Exceptions;
 using CQRSTutorial.Domain.CommandHandlers;
 using CQRSTutorial.Events;
 using CQRSTutorial.EventStore;
+using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using FluentAssertions;
-using NSubstitute.ExceptionExtensions;
+using CQRSTutorial.Messaging;
 
 namespace CQRSTutorial.Domain.Tests
 {
@@ -18,17 +18,19 @@ namespace CQRSTutorial.Domain.Tests
     {
         private readonly Guid _aggregateId = new Guid("5DCD69E3-1CF1-45A8-AEC9-217E4F8DA400");
         private IEventRepository _eventRepository;
+        private IMessageBus _messageBus;
 
         [SetUp]
         public void Setup()
         {
             _eventRepository = Substitute.For<IEventRepository>();
+            _messageBus = Substitute.For<IMessageBus>();
         }
 
         [Test]
         public void When_open_tab_command_raised()
         {
-            var commandHandler = new OpenTabCommandHandler(_eventRepository);
+            var commandHandler = new OpenTabCommandHandler(_messageBus);
             var openTab = new OpenTab
             {
                 AggregateId = _aggregateId,
@@ -54,7 +56,7 @@ namespace CQRSTutorial.Domain.Tests
                 }
             });
 
-            var commandHandler = new OrderDrinksCommandHandler(_eventRepository);
+            var commandHandler = new OrderDrinksCommandHandler(_eventRepository, _messageBus);
             var drinksOrder = new OrderDrinks
             {
                 AggregateId = _aggregateId,
@@ -78,7 +80,7 @@ namespace CQRSTutorial.Domain.Tests
         {
             _eventRepository.GetEventsFor(_aggregateId).Returns(new List<IDomainEvent>());
 
-            var commandHandler = new OrderDrinksCommandHandler(_eventRepository);
+            var commandHandler = new OrderDrinksCommandHandler(_eventRepository, _messageBus);
             var drinksOrder = new OrderDrinks
             {
                 AggregateId = _aggregateId,

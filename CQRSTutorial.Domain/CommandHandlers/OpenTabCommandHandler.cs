@@ -1,17 +1,17 @@
 ﻿using CQRSTutorial.Commands;
 using CQRSTutorial.Core;
-using CQRSTutorial.EventStore;
+using CQRSTutorial.Messaging;
 using System.Linq;
 
 namespace CQRSTutorial.Domain.CommandHandlers
 {
     public class OpenTabCommandHandler : ICommandHandler<OpenTab>
     {
-        private readonly IEventRepository _repository;
+        private readonly IMessageBus _messageBus;
 
-        public OpenTabCommandHandler(IEventRepository repository)
+        public OpenTabCommandHandler(IMessageBus messageBus)
         {
-            _repository = repository;
+            _messageBus = messageBus;
         }
 
         public IDomainEvent Handle(OpenTab command)
@@ -19,7 +19,8 @@ namespace CQRSTutorial.Domain.CommandHandlers
             var tab = new TabAggregate(command.AggregateId, command.TableNumber, command.WaiterName);
             var raisedEvent = tab.GetDomainEvents().Last();
 
-            _repository.Add(raisedEvent); // Temp until Event Listeners and bus added. 
+            _messageBus.RaiseEvent(raisedEvent);
+
             return raisedEvent;
         }
     }

@@ -3,16 +3,19 @@ using CQRSTutorial.Core;
 using CQRSTutorial.Core.Exceptions;
 using CQRSTutorial.EventStore;
 using System.Linq;
+using CQRSTutorial.Messaging;
 
 namespace CQRSTutorial.Domain.CommandHandlers
 {
     public class OrderDrinksCommandHandler : ICommandHandler<OrderDrinks>
     {
         private readonly IEventRepository _repository;
+        private readonly IMessageBus _messageBus;
 
-        public OrderDrinksCommandHandler(IEventRepository eventRepository)
+        public OrderDrinksCommandHandler(IEventRepository eventRepository, IMessageBus messageBus)
         {
             _repository = eventRepository;
+            _messageBus = messageBus;
         }
 
         public IDomainEvent Handle(OrderDrinks command)
@@ -25,7 +28,9 @@ namespace CQRSTutorial.Domain.CommandHandlers
             tab.AddDrinks(command);
 
             var raisedEvent = tab.GetDomainEvents().Last();
-            _repository.Add(raisedEvent); // Temp until Event Listeners and bus added. 
+
+            _messageBus.RaiseEvent(raisedEvent);
+
             return raisedEvent;
         }
     }

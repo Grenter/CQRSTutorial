@@ -10,7 +10,7 @@ namespace CQRSTutorial.EventStore
     public class EventRepository : IEventRepository
     {
         private readonly EventStoreContext _context;
-        private Assembly _eventsAssembly;
+        private readonly Assembly _eventsAssembly;
 
         public EventRepository(EventStoreContext context, Assembly eventsAssembly)
         {

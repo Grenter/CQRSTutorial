@@ -12,7 +12,7 @@ namespace CQRSTutorial.Messaging
             _handlers.Add(eventHandler);
         }
          
-        public void RaiseEvent<T>(IDomainEvent domainEvent) where T : IDomainEvent
+        public void RaiseEvent<T>(T domainEvent) where T : IDomainEvent
         {
             var @event = (T)domainEvent;
 

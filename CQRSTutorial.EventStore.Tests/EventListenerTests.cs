@@ -22,7 +22,7 @@ namespace CQRSTutorial.EventStore.Tests
                 AggregateId = Guid.NewGuid()
             };
 
-            messageBus.RaiseEvent<FakeEvent>(fakeEvent);
+            messageBus.RaiseEvent(fakeEvent);
             
             eventListener.Received().Handle(fakeEvent);
             eventRepository.Received().Add(fakeEvent);
