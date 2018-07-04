@@ -17,9 +17,9 @@ namespace CQRSTutorial.Domain.CommandHandlers
         public void Handle(OpenTab command)
         {
             var tab = new TabAggregate(command.AggregateId, command.TableNumber, command.WaiterName);
-            var raisedEvent = tab.GetDomainEvents().Last();
 
-            _messageBus.RaiseEvent(raisedEvent);
+            tab.RaiseLastEvent(@event => _messageBus.RaiseEvent(@event));
+
         }
     }
 }

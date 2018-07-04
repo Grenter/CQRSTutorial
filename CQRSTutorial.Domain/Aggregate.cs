@@ -1,4 +1,5 @@
-﻿using CQRSTutorial.Core;
+﻿using System;
+using CQRSTutorial.Core;
 using System.Collections.Generic;
 
 namespace CQRSTutorial.Domain
@@ -13,6 +14,8 @@ namespace CQRSTutorial.Domain
         }
 
         public abstract IEnumerable<IDomainEvent> GetDomainEvents();
+        public abstract void RaiseLastEvent(Action<IDomainEvent> action);
+
         public abstract void Apply(IDomainEvent domainEvent);
     }
 
@@ -20,5 +23,6 @@ namespace CQRSTutorial.Domain
     {
         void Apply(IDomainEvent domainEvent);
         IEnumerable<IDomainEvent> GetDomainEvents();
+        void RaiseLastEvent(Action<IDomainEvent> action);
     }
 }

@@ -27,9 +27,7 @@ namespace CQRSTutorial.Domain.CommandHandlers
 
             tab.AddDrinks(command);
 
-            var raisedEvent = tab.GetDomainEvents().Last();
-
-            _messageBus.RaiseEvent(raisedEvent);
+            tab.RaiseLastEvent(@event => _messageBus.RaiseEvent(@event));
         }
     }
 }
