@@ -5,9 +5,9 @@ namespace CQRSTutorial.Messaging
 {
     public class InMemoryMessageBus : IMessageBus
     {
-        IList<IEventHandler> _handlers = new List<IEventHandler>();
+        readonly IList<IEventListener> _handlers = new List<IEventListener>();
 
-        public void RegisterEventHandler<T>(T eventHandler) where T : IEventHandler
+        public void RegisterEventHandler<T>(T eventHandler) where T : IEventListener
         {
             _handlers.Add(eventHandler);
         }
@@ -20,13 +20,6 @@ namespace CQRSTutorial.Messaging
             {
                 eventHandler.Handle(@event);
             }
-        }
-    }
-
-    public interface IMessageBus
-    {
-        void RegisterEventHandler<T>(T eventHandler) where T : IEventHandler;
-
-        void RaiseEvent<T>(IDomainEvent domainEvent) where T : IDomainEvent;
+        }   
     }
 }

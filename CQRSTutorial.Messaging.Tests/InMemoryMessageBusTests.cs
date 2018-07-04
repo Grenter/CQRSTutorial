@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using CQRSTutorial.Core;
+﻿using CQRSTutorial.Core;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 
 namespace CQRSTutorial.Messaging.Tests
 {
@@ -13,7 +12,7 @@ namespace CQRSTutorial.Messaging.Tests
         public void Registered_handlers_recieve_raised_events()
         {
             var bus = new InMemoryMessageBus();
-            var eventHandler = Substitute.For<IEventHandler>();
+            var eventHandler = Substitute.For<IEventListener>();
             var fakeEvent = new FakeEvent();
 
             bus.RegisterEventHandler(eventHandler);
@@ -30,7 +29,7 @@ namespace CQRSTutorial.Messaging.Tests
         public Guid AggregateId { get; set; }
     }
 
-    public class EventHandler : IEventHandler
+    public class EventListener : IEventListener
     {
         public void Handle(IDomainEvent domainEvents)
         {

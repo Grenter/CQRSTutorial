@@ -2,7 +2,7 @@
 
 namespace CQRSTutorial.Core
 {
-    public interface IEventHandler
+    public interface IEventListener
     {
         void Handle(IDomainEvent domainEvents);
     }
