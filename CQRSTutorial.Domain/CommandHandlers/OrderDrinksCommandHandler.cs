@@ -18,7 +18,7 @@ namespace CQRSTutorial.Domain.CommandHandlers
             _messageBus = messageBus;
         }
 
-        public IDomainEvent Handle(OrderDrinks command)
+        public void Handle(OrderDrinks command)
         {
             var events = _repository.GetEventsFor(command.AggregateId);
             var tab = TabAggregate.BuildFromHistory(events.ToList());
@@ -30,8 +30,6 @@ namespace CQRSTutorial.Domain.CommandHandlers
             var raisedEvent = tab.GetDomainEvents().Last();
 
             _messageBus.RaiseEvent(raisedEvent);
-
-            return raisedEvent;
         }
     }
 }

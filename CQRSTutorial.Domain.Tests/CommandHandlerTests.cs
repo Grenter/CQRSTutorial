@@ -28,7 +28,7 @@ namespace CQRSTutorial.Domain.Tests
         }
 
         [Test]
-        public void When_open_tab_command_raised()
+        public void When_open_tab_command_check_event_raised()
         {
             var commandHandler = new OpenTabCommandHandler(_messageBus);
             var openTab = new OpenTab
@@ -38,13 +38,13 @@ namespace CQRSTutorial.Domain.Tests
                 TableNumber = 65
             };
 
-            var raisedEvent = commandHandler.Handle(openTab);
+            commandHandler.Handle(openTab);
 
-            raisedEvent.Should().BeOfType<TabOpened>();
+            _messageBus.Received().RaiseEvent(Arg.Any<TabOpened>());
         }
 
         [Test]
-        public void When_order_drinks_command_raised_after_open_tab()
+        public void When_order_drinks_command_after_open_tab_command_drinks_ordered_event_raised()
         {
             _eventRepository.GetEventsFor(_aggregateId).Returns(new List<IDomainEvent>
             {
@@ -70,9 +70,9 @@ namespace CQRSTutorial.Domain.Tests
                 }
             };
 
-            var raisedEvent = commandHandler.Handle(drinksOrder);
+            commandHandler.Handle(drinksOrder);
 
-            raisedEvent.Should().BeOfType<DrinksOrdered>();
+            _messageBus.Received().RaiseEvent(Arg.Any<DrinksOrdered>());
         }
 
         [Test]

@@ -23,7 +23,7 @@ namespace CQRSTutorial.Domain
         {
             var tabOpened = new TabOpened
             {
-                Id = Guid.NewGuid(),
+                //Id = Guid.NewGuid(),
                 AggregateId = tabId,
                 WaiterName = waiterName,
                 TableNumber = tableNumber,
@@ -85,6 +85,11 @@ namespace CQRSTutorial.Domain
             }
 
             return tab;
+        }
+
+        public void LastEvent(Action<IDomainEvent> action)
+        {
+            
         }
     }
 }

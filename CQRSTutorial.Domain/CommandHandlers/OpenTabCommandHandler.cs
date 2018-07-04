@@ -14,14 +14,12 @@ namespace CQRSTutorial.Domain.CommandHandlers
             _messageBus = messageBus;
         }
 
-        public IDomainEvent Handle(OpenTab command)
+        public void Handle(OpenTab command)
         {
             var tab = new TabAggregate(command.AggregateId, command.TableNumber, command.WaiterName);
             var raisedEvent = tab.GetDomainEvents().Last();
 
             _messageBus.RaiseEvent(raisedEvent);
-
-            return raisedEvent;
         }
     }
 }
