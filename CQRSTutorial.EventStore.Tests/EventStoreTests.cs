@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace CQRSTutorial.EventStore.Tests
 {
@@ -20,8 +21,8 @@ namespace CQRSTutorial.EventStore.Tests
         {
             _connection = new SqliteConnection("DataSource=:memory:");
             _aggregateId = new Guid("FC5B2701-E9B4-41E5-BD73-0C37185ADCBB");
-            
-           _connection.Open();
+
+            _connection.Open();
 
             var options = new DbContextOptionsBuilder<EventStoreContext>()
                 .UseSqlite(_connection)
@@ -29,7 +30,9 @@ namespace CQRSTutorial.EventStore.Tests
 
             DbContext = new EventStoreContext(options);
 
-            _storeRepository = new EventRepository(DbContext);
+            var eventsAssembly = Assembly.LoadFile(@"C:\code\CQRSTutorial\CQRSTutorial.Events\bin\Debug\netstandard2.0\CQRSTutorial.Events.dll");
+
+            _storeRepository = new EventRepository(DbContext, eventsAssembly);
         }
 
         [Test]

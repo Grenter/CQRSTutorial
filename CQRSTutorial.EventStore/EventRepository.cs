@@ -10,9 +10,12 @@ namespace CQRSTutorial.EventStore
     public class EventRepository : IEventRepository
     {
         private readonly EventStoreContext _context;
+        private Assembly _eventsAssembly;
 
-        public EventRepository(EventStoreContext context)
+        public EventRepository(EventStoreContext context, Assembly eventsAssembly)
         {
+            _eventsAssembly = eventsAssembly;
+
             _context = context;
             _context.Database.EnsureCreated();
         }
@@ -38,9 +41,7 @@ namespace CQRSTutorial.EventStore
 
         private IDomainEvent DeserialiseDomainEvent(Event @event)
         {
-            var eventAssembly = Assembly.LoadFile(@"C:\code\CQRSTutorial\CQRSTutorial.Events\bin\Debug\netstandard2.0\CQRSTutorial.Events.dll");
-
-            var type = eventAssembly.GetType(@event.Type);
+            var type = _eventsAssembly.GetType(@event.Type);
 
             return (IDomainEvent) JsonConvert.DeserializeObject(@event.Data, type);
         }
